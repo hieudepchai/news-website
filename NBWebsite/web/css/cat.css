@@ -1,0 +1,150 @@
+/* hot news */
+#hot-news-section{
+  
+}
+.article-top img{
+    width:100%;
+}
+#article-top-1 img
+{   
+    min-height: 350px;
+}
+#article-top-2 img{
+    min-height: 200px;
+}
+#article-top-3-4 img
+{
+    max-height: 150px;
+}
+
+/* list of news, LEFT COLUMN */
+.article-list-section
+{
+    margin-bottom:20px;
+}
+.article-list-section img{
+    width:100%;
+    max-height:200px;
+}
+.col-title{
+    font-size: 14px;
+    font-weight: 600;
+    background: #04091e;
+    color: #fff;
+    padding: 10px 25px;
+    margin-bottom:20px;
+}
+
+.latest-news-row{
+    margin-top:20px;
+}
+
+/* LEFT COLUMN, NEXT PAGE NAV */
+.list-col-left{
+    border-right: 1px solid black;
+}
+.next-page-nav{
+    text-align: center;
+}
+.next-page-nav-list li
+{
+    display: inline-block;
+    background: #07090c;
+    padding:4px 10px;
+}
+.next-page-nav-list li:hover
+{
+    opacity: 0.8;
+}
+.next-page-nav-list li a{
+    color:white;
+}
+.next-page-nav-list .active{
+    background:#EF233C;
+}
+/* END NEXT PAGE NAV */
+/* END LEFT COLUMN */
+
+/* popular row, RIGHT COLUMN */
+.single-article
+{
+    clear:both;
+}
+.single-article-img
+{
+    float: left;
+    margin-right:10px;
+    margin-bottom:15px;
+}
+.single-article-img img
+{
+    max-height: 100px;
+}
+.single-article p
+{
+    font-size:11px;
+}
+.single-article .article-meta
+{
+    margin:0px;
+}
+.single-article .article-meta li
+{
+    font-size:9.5px;
+}
+.single-article .article-title
+{
+    margin:0px;
+}
+.list-col-right .widget-title
+{
+    clear:both;
+}
+/* animation single-article-img */
+.single-article .single-article-img img {
+
+    -webkit-transition: 0.5s -webkit-transform;
+    transition: 0.5s -webkit-transform;
+    transition: 0.5s transform;
+    transition: 0.5s transform, 0.5s -webkit-transform;
+}
+
+.single-article:hover .single-article-img img {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+/* end of animatition */
+/* END RIGHT COLUMN */
+
+/*=========================================================
+	RESPONSIVE
+===========================================================*/
+@media only screen and (max-width: 1200px) {
+    
+}
+
+@media only screen and (max-width: 992px) {
+    #article-top-3-4 img {
+        max-height: none;
+        min-height: 200px;  
+    }
+    .article-list-section img{
+        max-height:none;
+    }
+    .list-col-left
+    {
+        border:none;
+    }
+
+}
+@media only screen and (max-width: 768px) {
+    
+}
+
+@media only screen and (max-width: 480px) {
+    #sub-nav-section .sub-nav-list li {
+        padding: 10px 8px;
+    }
+}

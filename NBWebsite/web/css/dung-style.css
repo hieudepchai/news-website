@@ -1,0 +1,39 @@
+.rounded-circle {
+    border-radius: 50% !important
+}
+.img-profile{
+    height:3rem;
+    width:3rem;
+}
+#logout-form{
+    display:none;
+}
+.mydivider{
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5!important;
+}
+.row .card{
+    width:40%;
+    margin:0 auto;
+}
+
+#upper-inputfile{
+    z-index:2;
+}
+
+.wrap-inputfile{
+    position: relative;
+}
+#lower-inputfile{
+    position: absolute;
+    opacity: 0;
+}
+.red{
+    color:red;
+}
+.navbar-collapse {
+    max-height: unset !important;
+}
+

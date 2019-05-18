@@ -1,0 +1,33 @@
+insert into Category values(null, 'News', null);
+insert into Category values(null, 'World', null);
+insert into Category values(null, 'Africa', 2);
+insert into Category values(null, 'Americas', 2);
+insert into Category values(null, 'Asia', 2);
+insert into Category values(null, 'Australian', 2);
+insert into Category values(null, 'Europe', 2);
+insert into Category values(null, 'Business', null);
+insert into Category values(null, 'Economy', 8);
+insert into Category values(null, 'Industries', 8);
+insert into Category values(null, 'Companies', 8);
+insert into Category values(null, 'Opinion', null);
+insert into Category values(null, 'Entertainment', null);
+insert into Category values(null, 'Celebrity', 10);
+insert into Category values(null, 'Music', 10);
+insert into Category values(null, 'Fashion', 10);
+insert into Category values(null, 'Sport', null);
+insert into Category values(null, 'Football', 17);
+insert into Category values(null, 'Tennis', 17);
+insert into Category values(null, 'Others', 17);
+insert into Category values(null, 'Technology', null);
+insert into Category values(null, 'Product', 21);
+insert into Category values(null, 'Technology life', 21);
+insert into Category values(null, 'Travel', null);
+insert into Category values(null, 'Place', 24);
+insert into Category values(null, 'Food', 24);
+
+select * from Category;
+select * from Account;
+select * from AccountType;
+
+delete from Account where AccountID = 25;
+update Account set AccountTypeID = 2 where AccountID = 26;
