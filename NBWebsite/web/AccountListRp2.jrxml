@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="69614466-58e5-48fd-b7a7-6446d6b356bd">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     Account.`AccountID` AS Account_AccountID,
+     Account.`Username` AS Account_Username,
+     CONCAT(Account.`FirstName`, " ", Account.`LastName`) AS Account_Name,
+     Account.`Email` AS Account_Email,
+     Account.`Phone` AS Account_Phone,
+     Account.`DateCreated` AS Account_DateCreated,
+     Account.`LastModified` AS Account_LastModified,
+     AccountType.`Name` AS AccountType_Name
+FROM
+     `AccountType` AccountType INNER JOIN `Account` Account ON AccountType.`AccountTypeID` = Account.`AccountTypeID`;
+]]>
+	</queryString>
+	<field name="Account_AccountID" class="java.lang.Integer"/>
+	<field name="Account_Username" class="java.lang.String"/>
+	<field name="Account_Name" class="java.lang.String"/>
+	<field name="Account_Email" class="java.lang.String"/>
+	<field name="Account_Phone" class="java.lang.String"/>
+	<field name="Account_DateCreated" class="java.sql.Timestamp"/>
+	<field name="Account_LastModified" class="java.sql.Timestamp"/>
+	<field name="AccountType_Name" class="java.lang.String"/>
+	<sortField name="AccountType_Name"/>
+	<group name="AccountType_Name">
+		<groupExpression><![CDATA[$F{AccountType_Name}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<textField>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="becc2eb9-6dfa-48cb-b526-e32eaf2b1f66"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{AccountType_Name}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="6533a624-d06b-4611-9238-b74ab81de5ce"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="addf43d5-172d-41ed-bca8-7ea790d16640"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="68482c5f-e0c1-44e5-9797-bfb34547a376"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[News Website]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="d6134f80-d224-4751-9a4d-155965826b44"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Report list of users]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="9361cef6-4eaa-4c4d-ab0b-49b6e5f34fa9"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="40" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="cbfcf6ae-7509-4c8c-b10d-b86ff58663c6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AccID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="45" y="0" width="55" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="fb020120-de93-49f6-bd25-07b8d6893bb7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="120" y="0" width="55" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="8b75eb8c-e388-49e3-98b5-71cb222c5bc6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="228" y="0" width="55" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="1e11f5e9-366f-437a-8a1f-85256aa92508"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="298" y="0" width="71" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="8dc714fa-ee06-490a-b05d-cd5d07f4e327"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Username]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="374" y="0" width="84" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="432efd4c-72e1-49a2-8c76-220672c6bcf9"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DateCreated]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="461" y="0" width="91" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="21d7f31f-6fc8-4ad8-9fe7-2cc6e6be622a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LastModified]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="75b98af7-13cb-472d-88d3-3fca220a8690"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="40" height="20" uuid="9c53b0cb-b504-4205-bd1f-3eb3ea41ecd2"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Account_AccountID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="228" y="0" width="70" height="20" uuid="9ea7dd92-fea0-4766-b121-70e07c835604"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Account_Phone}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="303" y="0" width="65" height="20" uuid="3a37931c-da8d-4e44-95a3-024e486263a4"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Account_Username}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="374" y="0" width="84" height="20" uuid="1132040f-4e86-4617-b441-834471e706a0"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Account_DateCreated}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="461" y="0" width="90" height="20" uuid="99768717-4ce4-4f97-b292-5ebb24dc5336"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Account_LastModified}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="0" width="77" height="20" uuid="e22e69bd-275e-47cd-bf3a-aad97ef55573"/>
+				<textFieldExpression><![CDATA[$F{Account_Name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="121" y="0" width="103" height="20" uuid="f98a0ea5-a90a-419d-a638-6c0307c440b6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Account_Email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="38a5d01c-2dca-4504-a0b4-9dbcdf10dc9d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="f1aca06a-88d2-4c33-8bb5-083d59db4a8d"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="a4669042-a832-4e61-9cd7-8008784da684"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -125,7 +125,7 @@ document.addEventListener("click", function () {
             toggle();
         });
     });
-
+    
     // Close any open menu accordions when window is resized below 768px
     $(window).resize(function () {
         if ($(window).width() < 768) {
@@ -217,30 +217,18 @@ document.addEventListener("click", function () {
     });
 
     //input a image and load into preview form
-    $("input[name=videoImage]").on('change', function (evt) {
-        var files = evt.target.files; // FileList object
-//        for (var i = 0, f; f = files[i]; i++) {
-//            //Loop thorugh all the files
-//            if (!f.type.match('image.*') || !f.name.match(/(?:gif|jpg|png|jpeg)$/)) { //Process only Images
-//                methods.showMessage.apply(this, ["imgErrMsg Invalid file type"]);
-//                continue;
-//            }
-//            var reader = new FileReader();
-//            reader.onload = (function (imageFile) {
-//                return function (e) {
-//                    $("img[name = topicImg]").attr({ 'src': e.target.result, 'title': escape(imageFile.name) });
-//                }
-//            })(f);
-//            reader.readAsDataURL(f);
-//        }
-        var reader = new FileReader();
-        reader.onload = (function (imageFile) {
-            return function (e) {
-                $("img[name = topicImg]").attr({ 'src': e.target.result, 'title': escape(imageFile.name) });
-            };
-        })(files[0]);
-        reader.readAsDataURL(files[0]);
-    });
+//    $("input[name=videoImage]").on('change', function (evt) {
+//        var files = evt.target.files; // FileList object
+//        var reader = new FileReader();
+//        reader.onload = (function (imageFile) {
+//            return function (e) {
+//                $("img[name = topicImg]").attr({ 'src': e.target.result, 'title': escape(imageFile.name) });
+//                $("div[name = previewTopicImg]").css('display', 'block');
+//                $("#previewTopicImg").attr({ 'src': e.target.result, 'title': escape(imageFile.name) });
+//            };
+//        })(files[0]);
+//        reader.readAsDataURL(files[0]);
+//    });
 
     //check condition to open preview form
     $("a[name = btnPreview]").click(function () {
@@ -258,13 +246,15 @@ document.addEventListener("click", function () {
             $("h3[name = subjectAr]").text(subject);
         }
 
-        if ($("img[name = topicImg]").attr('src') === null) {  //image topic
-            alert("Please choosing an image topic!");
-            error = 1;
-            return;
-        }
-
-        $("h6[name = timeAr]").text(dNow.toDateString());
+//        if ($("input[name=videoImage]").get(0).files.length === 0) {  //image topic
+//            alert("Please choosing an image topic!");
+//            error = 1;
+//            return;
+//        }
+        var timeAr = $("h6[name = timeAr]").html();
+        if(timeAr === ""){
+            $("h6[name = timeAr]").text(dNow.toDateString());
+        }        
 
         if (content === '<br>') {  //content
             alert("Please entering the article content!");
@@ -297,7 +287,7 @@ document.addEventListener("click", function () {
     //-----------------------------------------------------------------------------
 
     //-----------------------------libary-writer-----------------------------------
-    var srcListImg = ['img/img-lg-2.jpg', 'img/av-1.jpg']; //list of src
+    //var srcListImg = ['img/img-lg-2.jpg', 'img/av-1.jpg']; //list of src
 
     //$(document).ready(handleListImg(srcListImg));
 
@@ -310,80 +300,76 @@ document.addEventListener("click", function () {
     //}
 
     //input new image
-    $("#file").on('change', function (evt) {
-        var files = evt.target.files; // FileList object
-        var output = [];
-        for (var i = 0, f; f = files[i]; i++) {
-            //Loop thorugh all the files
-            if (!f.type.match('image.*') || !f.name.match(/(?:gif|jpg|JPG|png|jpeg)$/)) { //Process only Images
-                //methods.showMessage.apply(this, ["imgAdd Invalid file type"]);
-                alert("Invalid file type!")
-                continue;
-            }
-            var reader = new FileReader();
-            reader.onload = (function (imageFile) {
-                return function (e) {
-                    //Render Thumnails
-                    var div = $('<div/>', { class: "img-border mx-1 my-1" });
-                    var a = $('<a/>', {
-                        target: "_blank",
-                        name: "output"
-
-                    });
-                    srcListImg.push(e.target.result);
-
-                    var image = $('<img/>', {
-                        class: "mr-2 mb-2",
-                        src: e.target.result,
-                        title: escape(imageFile.name),
-                        height: "200px",
-                        width: "200px"
-                    }).appendTo(a).click(function () { //click function of new image
-                        handleListImg();
-                        $("#previewImg").attr({ 'src': $(this).attr('src'), 'target': $(this).attr('target') });
-                        $("#previewContainer").css({ "display": "block", "opacity": "1" });
-
-                        var clickImgPos = jQuery.inArray($(this).attr('src'), srcListImg);
-                        $("#listImg img").css('opacity', '0.4');
-                        $("#listImg div[name = listImg] img").eq(srcListImg.length - 1 - clickImgPos).css('opacity', '1');
-                        //alert(clickImgPos + " " + srcListImg.length);
-
-                        imgMove(clickImgPos);
-
-                    });
-                    div.append(a).appendTo($('#listImage'));
-                };
-            })(f);
-            reader.readAsDataURL(f);
-        }
-    }); 
-
-     $('div[name = addMoreImg]').on('click', function(e){
-        e.preventDefault();
-        $('#file1')[0].click();
-    });
+//    $("#file").on('change', function (evt) {
+//        var files = evt.target.files; // FileList object
+//        var output = [];
+//        for (var i = 0, f; f = files[i]; i++) {
+//            //Loop thorugh all the files
+//            if (!f.type.match('image.*') || !f.name.match(/(?:gif|jpg|JPG|png|jpeg)$/)) { //Process only Images
+//                //methods.showMessage.apply(this, ["imgAdd Invalid file type"]);
+//                alert("Invalid file type!")
+//                continue;
+//            }
+//            var reader = new FileReader();
+//            reader.onload = (function (imageFile) {
+//                return function (e) {
+//                    //Render Thumnails
+//                    var div = $('<div/>', { class: "img-border mx-1 my-1" });
+//                    var a = $('<a/>', {
+//                        target: "_blank",
+//                        name: "output"
+//
+//                    });
+//                    srcListImg.push(e.target.result);
+//
+//                    var image = $('<img/>', {
+//                        class: "mr-2 mb-2",
+//                        src: e.target.result,
+//                        title: escape(imageFile.name),
+//                        height: "200px",
+//                        width: "200px"
+//                    }).appendTo(a).click(function () { //click function of new image
+//                        handleListImg();
+//                        $("#previewImg").attr({ 'src': $(this).attr('src'), 'target': $(this).attr('target') });
+//                        $("#previewContainer").css({ "display": "block", "opacity": "1" });
+//
+//                        var clickImgPos = jQuery.inArray($(this).attr('src'), srcListImg);
+//                        $("#listImg img").css('opacity', '0.4');
+//                        $("#listImg div[name = listImg] img").eq(srcListImg.length - 1 - clickImgPos).css('opacity', '1');
+//                        //alert(clickImgPos + " " + srcListImg.length);
+//
+//                        imgMove(clickImgPos);
+//
+//                    });
+//                    div.append(a).appendTo($('#listImage'));
+//                };
+//            })(f);
+//            reader.readAsDataURL(f);
+//        }
+//    }); 
     
-    $('#addImg').on('click', function(e){
-        e.preventDefault();
-        $('#file')[0].click();
-        $('#form1').submit();
-    });
+//    $('#addImg').on('click', function(e){
+//        e.preventDefault();
+//        $('#file')[0].click();
+//        $('#form1').submit();
+//    });
     //-----------------------------------------------------------------------------
     //-------------------------------reuse------------------------------------------
+    
+        function setFooter(){
+            var nArticle = $(".aline:visible");
+            if (nArticle.length < 8){
+                $("footer").addClass("bottom-fixed");
+            } else{
+                $("footer").removeClass("bottom-fixed");
+            }
+        };    
+    
     //click refresh
     $("#refresh, #refresh > a, #refresh > a > i").click(function () {
         localStorage.setItem("kind", $("#kind").val());
         location.reload();
-    });
-
-    //delete an article
-    $("#delete, #delete > a, #delete > a > i").click(function () {
-
-        $(".aline > div > input:checked").parentsUntil("#aline").remove();
-        var nItems = countItem();
-        $('p[name = cItem]').text(nItems + " Items");
-        $('p[name = nItems]').text("1-" + nItems + " of " + nItems);
-    });
+    });    
 
     //soft by subject (third column)
     $("#aline .aline > div > a[name = subject]").click(function () {
@@ -393,7 +379,7 @@ document.addEventListener("click", function () {
         var nItems = countItem();
         $('p[name = cItem]').text(nItems + " Items");
         $('p[name = nItems]').text("1-" + nItems + " of " + nItems);
-
+        setFooter();
     });
 
     //soft by status (fourth column)
@@ -404,6 +390,17 @@ document.addEventListener("click", function () {
         var nItems = countItem();
         $('p[name = cItem]').text(nItems + " Items");
         $('p[name = nItems]').text("1-" + nItems + " of " + nItems);
+        setFooter();
+    });
+    
+    //soft by heading
+    $("#aline .aline span[name = heading]").click(function () {
+        var status = $(this).text();
+        $("#aline .aline span[name = heading]:not(:contains(" + status + "))").parentsUntil("#aline").hide();
+        var nItems = countItem();
+        $('p[name = cItem]').text(nItems + " Items");
+        $('p[name = nItems]').text("1-" + nItems + " of " + nItems);
+        setFooter();
     });
     //------------------------------------------------------------------------------
     //--------------------list of article-writer & draft-writer--------------------
@@ -534,7 +531,7 @@ document.addEventListener("click", function () {
         var kind = this.value;
         changeCmt(kind);
 
-    })
+    });
 
     
 
@@ -554,10 +551,10 @@ document.addEventListener("click", function () {
             var content = $("div[name = firstName]").html();
             $("div[name = firstName]").text(content);
             $("div[name = firstName]").text("");
-            $("div[name = firstName]").append('<input type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
+            $("div[name = firstName]").append('<input name="firstName" type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
         }
-
-    })
+        $("#saveChange").css('display', 'block');
+    });
 
     //last name click
     $("a[name = lastName]").click(function () {
@@ -566,10 +563,10 @@ document.addEventListener("click", function () {
             var content = $("div[name = lastName]").html();
             $("div[name = lastName]").text(content);
             $("div[name = lastName]").text("");
-            $("div[name = lastName]").append('<input type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
+            $("div[name = lastName]").append('<input name="lastName" type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
         }
-
-    })
+        $("#saveChange").css('display', 'block');
+    });
 
     //username click
     $("a[name = userName]").click(function () {
@@ -578,10 +575,98 @@ document.addEventListener("click", function () {
             var content = $("div[name = userName]").html();
             $("div[name = userName]").text(content);
             $("div[name = userName]").text("");
-            $("div[name = userName]").append('<input type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
+            $("div[name = userName]").append('<input name="userName" type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
         }
-
-    })
+        $("#saveChange").css('display', 'block');
+    });
+    
+    //change password
+    $("a[name = changePass]").click(function () {
+        var x = $('div[name = changePass] > input').length;
+        if (!x) {
+            
+            $("div[name = changePass]").text("");            
+            var password = $('<input/>', {
+                name: "password",
+                type: "password",
+                placeholder: "New password",
+                style: "width: 300px;"
+            }).on('input',function(){
+                $(this).css({'border':'1px solid #dddfeb'});
+                var pass = $(this).val();
+                if(pass.length === 0){
+                    $('span[name = status]').html("");
+                }
+                else if(pass.length < 8){
+                    $('span[name = status]').html("Too short");
+                }else if(pass.length < 9){
+                    $('span[name = status]').html("Weak");
+                }else if(pass.length < 10){
+                    $('span[name = status]').html("Good");
+                }else{
+                    $('span[name = status]').html("Strong");
+                }
+            }).appendTo("div[name = changePass]");
+            
+            var status = $('<div/>',{
+                class: "mt-2 d-flex text-gray-900"
+            }).appendTo("div[name = changePass]");
+            status.text("Password Length: ");
+            $('<span/>',{
+                name: "status",
+                class: "ml-2 text-gray-600",
+                html: ""
+            }).appendTo(status);
+            
+            var rePassword = $('<input/>', {
+                name: "rePassword",
+                class: "mt-3",
+                type: "password",
+                placeholder: "Confirm new password",
+                style: "width: 300px;"
+            }).on('change',function(){
+                $(this).css({'border':'1px solid #dddfeb'});
+                var pass = $('input[name = password').val();
+                var repass = $(this).val();
+                if(pass !== repass){
+                    $('<span/>',{
+                        name: "error",
+                        class: "ml-2 text-red small",
+                        html: "Password doesn't match"
+                    }).appendTo("div[name = changePass]");
+                }else{
+                    $("span[name = error").html("");
+                }
+            }).appendTo("div[name = changePass]");
+            
+            
+        }
+        $("#saveChange").css('display', 'block');
+    });
+    
+    //email click
+    $("a[name = email]").click(function () {
+        var x = $('div[name = email] > input').length;
+        if (!x) {
+            var content = $("div[name = email]").html();
+            $("div[name = email]").text(content);
+            $("div[name = email]").text("");
+            $("div[name = email]").append('<input name="email" type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
+        }
+        $("#saveChange").css('display', 'block');
+    });
+    
+    //phone number click
+    $("a[name = phoneNumber]").click(function () {
+        var x = $('div[name = phoneNumber] > input').length;
+        if (!x) {
+            var content = $("div[name = phoneNumber]").html();
+            $("div[name = phoneNumber]").text(content);
+            $("div[name = phoneNumber]").text("");
+            $("div[name = phoneNumber]").append('<input name="phoneNumber" type="text" style="width:300px;" placeholder="First name" value=' + content + ' />');
+        }
+        $("#saveChange").css('display', 'block');
+    });
     //-----------------------------------------------------------------------------
 })(jQuery); // End of use strict
 

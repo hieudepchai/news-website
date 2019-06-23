@@ -74,6 +74,7 @@ create table Article(
 create table Comment(
 	CommentID int not null auto_increment,
     ArticleID int not null,
+    RepliedCommentID int null default 0,
     AccountID int not null,
     Content text,
     NoOfLikes int default 0,
@@ -83,6 +84,14 @@ create table Comment(
     constraint Comment_Article_fk foreign key (ArticleID) references Article(ArticleID),
     constraint Comment_Acc_fk foreign key (AccountID) references Account(AccountID)
 );
+
+
+INSERT INTO `Comment` (`CommentID`, `ArticleID`, `RepliedCommentID`, `AccountID`, `Content`, `NoOfLikes`, `Level`, `DateCreated`) VALUES
+(1, 38, 0, 91, 'Very goooood!!!!', 10, 1, NULL),
+(2, 38, 0, 105, 'A hi hi hi hi hi hi !!!', 12, 1, NULL),
+(3, 38, 0, 13, 'I am groooooooot!!!', 1, 2, NULL),
+(4, 38, 0, 56, 'I am iron mannnnn!!!!!!', 8, 2, NULL);
+
 
 create table Bookmark(
 	BookmarkID int not null auto_increment,
@@ -95,7 +104,6 @@ create table Bookmark(
     constraint BM_article_fk foreign key (ArticleID) references Article(ArticleID)
 );
 
-drop table Message;
 create table Message(
 	MessageID int not null auto_increment,
     ArticleID int not null,
@@ -156,6 +164,7 @@ end;
 $$
 DELIMITER
 
+drop trigger auto_insert_date_comment;
 
 create trigger auto_insert_date_comment
 before insert on Comment
@@ -200,3 +209,11 @@ for each row
 	set NEW.LastModified = now();
 $$
 DELIMITER ;
+
+DELIMITER $$;
+
+DROP TRIGGER 	delete_commentafter;
+
+
+
+

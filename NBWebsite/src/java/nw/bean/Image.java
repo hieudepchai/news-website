@@ -15,22 +15,25 @@ public class Image {
     private int ArticleID;
     private int AccountID;
     private String DateCreated;
+    private int Thumbnail;
 
     public Image() {
     }
 
-    public Image(int ImageID, String Source, int ArticleID, int AccountID, String DateCreated) {
+    public Image(int ImageID, String Source, int ArticleID, int AccountID, String DateCreated, int Thumbnail) {
         this.ImageID = ImageID;
         this.Source = Source;
         this.ArticleID = ArticleID;
         this.AccountID = AccountID;
         this.DateCreated = DateCreated;
+        this.Thumbnail = Thumbnail;
     }
     
-    public Image(String Source, int ArticleID, int AccountID) {
+    public Image(String Source, int ArticleID, int AccountID, int Thumbnail) {
         this.Source = Source;
         this.ArticleID = ArticleID;
         this.AccountID = AccountID;
+        this.Thumbnail = Thumbnail;
     }
 
     public int getImageID() {
@@ -71,6 +74,14 @@ public class Image {
 
     public void setDateCreated(String DateCreated) {
         this.DateCreated = DateCreated;
+    }
+
+    public int getThumbnail() {
+        return Thumbnail;
+    }
+
+    public void setThumbnail(int Thumbnail) {
+        this.Thumbnail = Thumbnail;
     }
     
 }

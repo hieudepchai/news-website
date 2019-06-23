@@ -5,11 +5,13 @@
  */
 package nw.bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Admin
  */
-public class ArticleBean {
+public class ArticleBean implements Serializable {
     private int ArticleID;
     private String Heading;
     private String ShortDescription;
@@ -22,8 +24,16 @@ public class ArticleBean {
     private int Trash;
     private String DateCreated;
     private String LastModified;
-
+    private String Author;
     public ArticleBean() {
+    }
+
+    public String getAuthor() {
+        return Author;
+    }
+
+    public void setAuthor(String Author) {
+        this.Author = Author;
     }
 
     public ArticleBean(int ArticleID, String Heading, String ShortDescription, String Content, int CategoryID, int SubCategoryID, int JournalistID, int Censored, int Draft, int Trash, String DateCreated, String LastModified) {

@@ -1,0 +1,49 @@
+#upload{
+    position: relative;
+    text-align: center;
+}
+#lower-inputfile{
+    position: absolute;
+    opacity: 0;
+    z-index: 5;
+}
+/*#upper-inputfile {
+    z-index: 2;
+}*/
+input{
+    text-align: center;
+}
+#profile-tab h3{
+    text-align: center;
+    margin-bottom: 30px;
+}
+#profile-form, #pw-form input{
+    margin:0 auto;
+    width:50%!important;
+}
+#profile-form, #pw-form {
+    text-align: center;
+}
+#profile-tab h4{
+    text-align: center;
+}
+.btn-div{
+    text-align: center;
+}
+#mybtn-save{
+
+
+}
+#inputProfilePicture{
+    display:none;
+}
+
+
+#pw-res{
+    color:red;
+    margin-bottom: 10px;
+    font-weight:bold;
+}
+.cmt-detail{
+    margin-bottom: 10px;
+}

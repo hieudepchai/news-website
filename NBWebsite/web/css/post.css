@@ -9,9 +9,55 @@
 }
 .comment-media
 {
-    
+
 }
 .comment-media .article-reply-form {
     margin-top: 0px;
     margin-bottom: 0px;
+}
+.article-content{
+    text-align: justify;
+}
+#related-post-row img{
+    height:170px;
+}
+.media-heading h5{
+    display: inline-block; 
+}
+.article-comments .media-heading,h5,p{
+    margin-bottom: 0px;
+}
+.media-body{
+    position:relative;
+}
+.delete-btn{
+    position:absolute;
+    top:0px;
+    right:0px;
+    font-size: 20px;
+    color: red;
+}
+.delete-btn:hover{
+    opacity: 0.5;
+}
+.article img{
+    width:100%!important;
+}
+.star-bookmark{
+    background-color:orange!important;
+    font-size:18px!important;
+}
+#bookmark-form{
+    position: absolute;
+    left:-170px;
+    max-height:0px;
+    transition: all 0.5s;
+    overflow:hidden;
+}
+#bookmark-form #bm-title{
+    width:200px;
+  
+}
+#btn-bm-delete{
+    background-color:#EF233C !important;
 }

@@ -7,6 +7,7 @@ package nw.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -59,72 +60,74 @@ public class adminAccountSubmitServlet extends HttpServlet {
             int action = Integer.parseInt(para_action);
             //select action
             try {
-                switch (action) {
-                    case 1:
-                        acc.setUsername(request.getParameter("Username"));
-                        acc.setPassword(request.getParameter("Password"));
-                        acc.setFirstName(request.getParameter("FirstName"));
-                        acc.setLastName(request.getParameter("LastName"));
-                        acc.setEmail(request.getParameter("Email"));
-                        acc.setPhone(request.getParameter("Phone"));
-                        acc.setAccountTypeID(Integer.parseInt(request.getParameter("AccountTypeID")));
-                        acc.setValid(Integer.parseInt(request.getParameter("Valid")));
+                if (action == 1 || action == 2) {
+                    acc.setUsername(request.getParameter("Username"));
+                    acc.setPassword(request.getParameter("Password"));
+                    acc.setFirstName(request.getParameter("FirstName"));
+                    acc.setLastName(request.getParameter("LastName"));
+                    acc.setEmail(request.getParameter("Email"));
+                    acc.setPhone(request.getParameter("Phone"));
+                    acc.setAccountTypeID(Integer.parseInt(request.getParameter("AccountTypeID")));
+                    acc.setValid(Integer.parseInt(request.getParameter("Valid")));
+                    String fakePath = request.getParameter("ProfilePicture1");                   
+                    if ("".equals(fakePath)) {
+                        acc.setProfilePicture("");
+                    } else {
                         Part filePart = request.getPart("ProfilePicture");
+                        //upload file
+                        // gets absolute path of the web application
                         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                        if (fileName =="") {
-                            acc.setProfilePicture("");
-                        } else {
-                            //upload file
-                            // gets absolute path of the web application
-                            String appPath = request.getServletContext().getRealPath("");
-                            // constructs path of the directory to save uploaded file
-                            //String savePath = appPath + File.separator +SAVE_DIR;
-                            //get true project directory
-                            String[] dir = appPath.split("build");
-                            String savePath = dir[0] + "web\\img\\profilepic";
-                            // creates the save directory if it does not exists
-                            File fileSaveDir = new File(savePath);
-                            if (!fileSaveDir.exists()) {
-                                fileSaveDir.mkdir();
-                            }                       
-                            filePart.write(savePath + File.separator + fileName);
-                            acc.setProfilePicture("../img/profilepic/"+fileName);
+                        String appPath = request.getServletContext().getRealPath("");
+                        // constructs path of the directory to save uploaded file
+                        //String savePath = appPath + File.separator +SAVE_DIR;
+                        //get true project directory
+                        String[] dir = appPath.split("build");
+                        String savePath = dir[0] + "web\\img\\profilepic";
+                        // creates the save directory if it does not exists
+                        File fileSaveDir = new File(savePath);
+                        if (!fileSaveDir.exists()) {
+                            fileSaveDir.mkdir();
                         }
-
+                        filePart.write(savePath + File.separator + fileName);
+                        acc.setProfilePicture("img/profilepic/" + fileName);
+                    }
+                    int res = 0;
+                    if (action == 1) {
                         //insert operation
-                        int addres = 0;
-                        addres = accDAO.insertAccount(acc);
-                        if (addres == 0 || addres == -1) {
+                        res = accDAO.insertAccount(acc);
+                        if (res == 0 || res == -1) {
                             session.setAttribute("AccountSubmitResult", "Failed to insert");
                         } else {
                             session.setAttribute("AccountSubmitResult", "Inserted successfully");
                             session.removeAttribute("ListAccount");
                         }
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-                        int AccountID = Integer.parseInt(request.getParameter("AccountID"));
-                        int deleteres = 0;
-                        deleteres = accDAO.deleteAccountByID(AccountID);
-                        if (deleteres == 0 || deleteres == -1) {
-                            session.setAttribute("AccountSubmitResult", "Failed to delete");
+                    } else {//action ==2
+                        //update operation
+                        acc.setAccountID(Integer.parseInt(request.getParameter("AccountID")));
+                        res = accDAO.updateAccount(acc);
+                        if (res == 0 || res == -1) {
+                            session.setAttribute("AccountSubmitResult", "Failed to update");
                         } else {
-                            session.setAttribute("AccountSubmitResult", "Deleted successfully");
+                            session.setAttribute("AccountSubmitResult", "Updated successfully");
                             session.removeAttribute("ListAccount");
                         }
-                        break;
-                    default:
-                        break;
+                    }
+                } else {//action ==3
+                    int AccountID = Integer.parseInt(request.getParameter("AccountID"));
+                    int deleteres = 0;
+                    deleteres = accDAO.deleteAccountByID(AccountID);
+                    if (deleteres == 0 || deleteres == -1) {
+                        session.setAttribute("AccountSubmitResult", "Failed to delete");
+                    } else {
+                        session.setAttribute("AccountSubmitResult", "Deleted successfully");
+                        session.removeAttribute("ListAccount");
+                    }
                 }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(adminAccountSubmitServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+                response.sendRedirect(request.getContextPath() + "/manage/admin/account");
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(adminAccountSubmitServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            response.sendRedirect(request.getContextPath() + "/admin/account");
 
         }
     }

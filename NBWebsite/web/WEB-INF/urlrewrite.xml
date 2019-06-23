@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite
+    PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+    "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+    <rule>
+        <from>/articles/([a-z]+)$</from>
+        <to>/category?category=$1</to>
+    </rule>
+    <rule>
+        <from>/articles/([a-z]+)/([a-z]+)$</from>
+        <to>/category?category=$1&amp;subcat=$2</to>
+    </rule>
+    <rule>
+        <from>/articles/([a-z]+)/([0-9]+)$</from>
+        <to>/article?category=$1&amp;articleid=$2</to>
+    </rule>
+      <rule>
+        <from>/articles/([a-z]+)/([a-z]+)/([0-9]+)$</from>
+        <to>/article?category=$1&amp;subcat=$2&amp;articleid=$3</to>
+    </rule>
+</urlrewrite>

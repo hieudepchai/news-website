@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,16 +54,19 @@ public class adminAccountServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private void Accountubmit() {
-
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
             //
+            if (session.getAttribute("ListType") != null) {
+                session.removeAttribute("ListType");
+            }
+            if (session.getAttribute("ListAccount") != null) {
+                session.removeAttribute("ListAccount");
+            }
+
             if (session.getAttribute("ListType") == null) {
                 ArrayList<AccountTypeBean> alAccountType = new ArrayList<AccountTypeBean>();
                 MyBiMap<Integer, String> TypeMap = new MyBiMap<Integer, String>();
@@ -79,7 +83,6 @@ public class adminAccountServlet extends HttpServlet {
                 alAccount = accDAO.getAccount();
                 session.setAttribute("ListAccount", alAccount);
             }
-           
             request.getRequestDispatcher("/admin_account.jsp").forward(request, response);
         } catch (SQLException ex) {
             System.out.print(ex.toString());

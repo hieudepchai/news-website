@@ -47,7 +47,7 @@ Table OF Contents
 }
 
 #hot-news-section-2 p {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #hot-news-section-2 .article-meta li {
@@ -71,11 +71,13 @@ Table OF Contents
 /* END OF MOST READ SECTION */
 #scrolling-heading-section {
     margin-top: 10px;
-    max-height: 250px;
+    max-height: 300px;
     overflow-y: auto;
     position: relative;
 }
-
+#scrolling-heading-section span{
+    text-align: justify;
+}
 #scrolling-heading-section li {
     counter-increment: step-counter;
     /* clear:both; */
@@ -89,7 +91,7 @@ Table OF Contents
 }
 
 #scrolling-heading-section  a {
-    font-size: 16px;
+    font-size: 14px;
     left: 10%;
 }
 
@@ -118,7 +120,7 @@ Table OF Contents
 }
 
 .notd-article-1 .article p {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 /* END OF NEWS OF THE DAY SECTION NOTD ========================*/
@@ -142,7 +144,9 @@ Table OF Contents
     margin-right: 10px;
     float: left;
 }
-
+.single-article-img img{
+    width:100%;
+}
 /* END SINGLE-ARTICLE */
 
 /*=========================================================

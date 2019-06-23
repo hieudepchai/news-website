@@ -163,7 +163,7 @@ You should have received a copy of the GNU General Public License along with thi
 							var a = $('<a/>',{
 								href:"javascript:void(0)",
 								class:"thumbnail"
-                            });
+							});
 							var image = $('<img/>',{
 								src:e.target.result,
 								title:escape(imageFile.name)
@@ -207,7 +207,7 @@ You should have received a copy of the GNU General Public License along with thi
 				var a = $('<a/>',{
 					href:"javascript:void(0)",
 					class:"thumbnail"
-                });
+				});
 				var image = $('<img/>',{
 					src:url,
 				}).error(function(){
@@ -735,37 +735,43 @@ You should have received a copy of the GNU General Public License along with thi
 											}},
 
 						   'insert_img'	: { "modal": true,
-						   					"modalId": "InsertImage_" + $(this).attr("id"), 
+						   					"modalId": "addImgModal", 
 											"icon":"fa fa-picture-o", 
 											"tooltip": "Insert Image", 
-											"modalHeader": "Insert Image",
-											"modalBody": methods.imageWidget.apply(this),
+                                                                                        "id": "addImg",
+                                                                                        "name": "save",
+                                                                                        "value": "editorImg",
+											//"modalHeader": "Insert Image",
+											//"modalBody": methods.imageWidget.apply(this),
 											"beforeLoad":function(){
-												editorObj = this;
-												var _idSuffix = editorObj.attr("id");
-												$('#imageURL_' + _idSuffix).val("");
-												$("#uploadImageBar_" + _idSuffix + " :input").val("");
-												$('#imageList_' + _idSuffix).data('current',"");																																				
+//												editorObj = this;
+//												var _idSuffix = editorObj.attr("id");
+//												$('#imageURL_' + _idSuffix).val("");
+//												$("#uploadImageBar_" + _idSuffix + " :input").val("");
+//												$('#imageList_' + _idSuffix).data('current',"");
+                                                                                                buttonClick = 0;
 											},
-											"onSave": function(){
-												var _idSuffix = "_" + editorObj.attr("id");
-												methods.restoreSelection.apply(this);												
-												if($('#imageList' + _idSuffix).data('current')){
-													if(navigator.userAgent.match(/MSIE/i) || navigator.userAgent.match(/Windows NT.*Trident\//)){
-														var imageStr = '<img src="'+$('#imageList' + _idSuffix).data('current')+'"/>'
-														methods.restoreSelection.apply(this,[imageStr,'html'])
-													}
-													else{
-														document.execCommand('insertimage', false, $('#imageList' + _idSuffix).data('current'));
-													}
-												}
-												else{
-													methods.showMessage.apply(this,["imgErrMsg" + _idSuffix,"Please select an image"]);
-													return false;
-												}
-												$("#InsertImage" + _idSuffix).modal("hide");
-												$(this).data("editor").focus();
-											}},
+//											"onSave": function(){
+//												//var _idSuffix = "_" + editorObj.attr("id");
+//												methods.restoreSelection.apply(this);												
+//												if(source !== ""){
+//													if(navigator.userAgent.match(/MSIE/i) || navigator.userAgent.match(/Windows NT.*Trident\//)){
+//														var imageStr = '<img src="'+source+'"/>'
+//														methods.restoreSelection.apply(this,[imageStr,'html'])
+//													}
+//													else{
+//														document.execCommand('insertimage', false, source);
+//                                                                                                                $(".Editor-editor img").css({ 'max-height': '550px', 'max-width': '800px' }); 
+//													}
+//												}
+//												else{
+//                                                                                                    alert("error");
+//													methods.showMessage.apply(this,["imgErrMsg","Please select an image"]);
+//													return false;
+//												}
+//												$("#InsertImage" + _idSuffix).modal("hide");
+//												$(this).data("editor").focus();
+                                                                                        },
 
 						'insert_table'	: { "modal": true,
 					   						"modalId": "InsertTable_" + $(this).attr("id"), 
@@ -1022,7 +1028,7 @@ You should have received a copy of the GNU General Public License along with thi
 	       	var menuBar = $( "<div/>",{ id : "menuBarDiv_" + $(this).attr("id"),
 								  		class : "row-fluid line-control-menu-bar"
 							}).prependTo(containerDiv);
-	       	var editor  = $( "<div/>",{	class : "Editor-editor", id : "editorContent", name : "editorContent",
+	       	var editor  = $( "<div/>",{	class : "Editor-editor", name: "Editor-editor",
 										css : {overflow: "auto"},
 										contenteditable:"true"
 						 	}).appendTo(containerDiv);
@@ -1433,7 +1439,7 @@ You should have received a copy of the GNU General Public License along with thi
 				    	}
 					}
 				}(this, methods,itemSettings["beforeLoad"]));
-				menuWrapElement.attr('title', itemSettings['tooltip']);
+				menuWrapElement.attr({'title': itemSettings['tooltip'], 'id': itemSettings['id']});
 				return menuWrapElement;
 		    }
 			else{
@@ -1456,7 +1462,14 @@ You should have received a copy of the GNU General Public License along with thi
 			else{
 				menuWrapElement.data("commandName", itemSettings["commandname"]);
 				menuWrapElement.data("editor", $(this).data("editor"));
-				menuWrapElement.bind(action, function(){ methods.setTextFormat.apply(this) });
+				menuWrapElement.bind(action, function(){ 
+                                    methods.setTextFormat.apply(this);
+//                                    if ($(this).attr("id") === "addImg") {
+//                                        e.preventDefault();
+//                                        $('#file').click();    
+//                                        //$("#form1").submit();
+//                                    };
+                                });
 			}
 			menuWrapElement.attr('title', itemSettings['tooltip']);
 			menuWrapElement.css('cursor', 'pointer');

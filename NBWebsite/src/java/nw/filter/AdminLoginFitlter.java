@@ -109,7 +109,7 @@ public class AdminLoginFitlter implements Filter {
         AccountBean CurrentAccount = (AccountBean) session.getAttribute("CurrentAccount");
         AccountTypeBean CurrentAccountType = (AccountTypeBean) session.getAttribute("CurrentAccountType");
         if (CurrentAccount == null || CurrentAccountType.getAdminRight()!=1) {
-            resp.sendRedirect(req.getContextPath()+"/login");
+            resp.sendRedirect(req.getContextPath()+"/manage/login");
         } else {
             chain.doFilter(request, response);
         }

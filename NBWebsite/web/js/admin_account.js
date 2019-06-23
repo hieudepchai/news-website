@@ -53,7 +53,7 @@ $(function () {
         $(optselector).prop('selected', true);
     })
     //btn-row
-    $("#btn-row .btn-success").click(function () {
+    $("#btn-row .btn-success ").click(function () {
         $("#btn-row .btn-success").attr('disabled', 'disabled');
         $("#mybtn-save").attr('disabled', false);
 
@@ -69,7 +69,6 @@ $(function () {
         {
             clearInput();
             EnableAllInput();
-             $("#inputAccountID").attr("disabled", "disabled");
             $("#hidden-input").val(2);
             action = 2;
 
@@ -80,29 +79,12 @@ $(function () {
         }
 
     })
+ 
     //mybtn-save
-    $("#mybtn-save").click(function () {
-        if (action == 1)
-        {
-            if (!$("#account_form input").not("#inputAccountID").val())
-            {
-                alert('No null input');
-            } else {
-                $("#account_form").submit();
-            }
-        } else if (action == 2)
-        {
-
-
-        } else {
-            $("#account_form").submit();
-
-        }
-
-    })
     //btn-reset
     $("#mybtn-reset").click(function () {
         clearInput();
+        DisableAllInput();
         $("#btn-row .btn-success").attr('disabled', false);
         $("#mybtn-save").attr("disabled", "disabled");
     })

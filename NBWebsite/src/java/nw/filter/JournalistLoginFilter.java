@@ -9,6 +9,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.util.Pair;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -20,6 +27,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import nw.bean.AccountBean;
 import nw.bean.AccountTypeBean;
+import nw.bean.ActivityBean;
+import nw.bean.ArticleBean;
+import nw.bean.CommentBean;
+import nw.bean.Image;
+import nw.controller.journalistListOfArticlesServlet;
+import nw.dao.*;
+import nw.utils.ArticleLib;
+import nw.utils.CommentLib;
+import nw.utils.ImageLib;
+import nw.utils.NotificationLib;
+
 
 /**
  *
@@ -109,8 +127,59 @@ public class JournalistLoginFilter implements Filter {
         AccountBean CurrentAccount = (AccountBean) session.getAttribute("CurrentAccount");
         AccountTypeBean CurrentAccountType = (AccountTypeBean) session.getAttribute("CurrentAccountType");
         if (CurrentAccount == null || CurrentAccountType.getJournalistRight() != 1) {
-            resp.sendRedirect(req.getContextPath() + "/");
+            resp.sendRedirect(req.getContextPath() + "/manage/login");
+
         } else {
+            //ArticleDAO artiDAO = new ArticleDAO();
+            CategoryDAO cateDAO = new CategoryDAO();
+            //ImageDAO imgDAO = new ImageDAO();
+            int journalistID = CurrentAccount.getAccountID();
+
+            try {
+                List<ArticleBean> listArticle = ArticleLib.getListArticleJL(journalistID);
+                if (listArticle == null) {
+                    ArticleLib.createListAticleJl(journalistID);
+                    listArticle = ArticleLib.getListArticleJL(journalistID);
+                }
+                HashMap<Integer, String> listCate = cateDAO.getAllCategory();
+
+                session.setAttribute("listArticle", listArticle);
+                session.setAttribute("listCate", listCate);
+
+                List<Image> listImg = ImageLib.getListImageAccount(journalistID);
+                if (listImg == null) {
+                    ImageLib.createListImageAccount(journalistID);
+                    listImg = ImageLib.getListImageAccount(journalistID);
+                }
+                session.setAttribute("listImage", listImg);
+
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(journalistListOfArticlesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //comment
+            List<CommentBean> listCmt = CommentLib.getCommentJournalist(journalistID);
+            if(listCmt == null){
+                CommentLib.createListCommentJournalist(journalistID);
+                listCmt = CommentLib.getCommentJournalist(journalistID);
+            }
+            session.setAttribute("listComment", listCmt);
+
+            //notification
+            if (session.getAttribute("listNotification") == null) {
+                List<Pair<Integer, ActivityBean>> listNotification = NotificationLib.getListNotifyAccount(journalistID);
+                HashMap<Integer, String> TopicImageMap = ImageLib.getTopicImageMap(); //map store topic image(thumbnail = 1)
+                if (listNotification == null) {
+                    NotificationLib.createlistNotificationJournalist(journalistID);
+                    listNotification = NotificationLib.getListNotifyAccount(journalistID);
+                }
+                //List<Pair<Integer, ActivityBean>> listNotify = new ArrayList<>(listNotification);
+                //HashMap<Integer, String> time = NotificationLib.CalTimeListNotification(listNotify, TopicImageMap);
+                NotificationLib.clearListNewNotificationJl(journalistID);
+                session.setAttribute("TopicImageMap", TopicImageMap);
+                session.setAttribute("listNotification", listNotification);
+            }
+
             chain.doFilter(request, response);
         }
     }

@@ -23,8 +23,56 @@ public class AccountBean {
     private int AccountTypeID;
     private String ProfilePicture;
     private int Valid;
+    private String FullName;
+
+    public AccountBean(int AccountID, String ProfilePicture, String FullName) {
+        this.AccountID = AccountID;
+        this.ProfilePicture = ProfilePicture;
+        this.FullName = FullName;
+    }
+
+    public AccountBean(int AccountID, String Username, String Password, String FirstName, String LastName, String Email, String Phone, String DateCreated, String LastModified, int AccountTypeID, String ProfilePicture, int Valid, String FullName) {
+        this.AccountID = AccountID;
+        this.Username = Username;
+        this.Password = Password;
+        this.FirstName = FirstName;
+        this.LastName = LastName;
+        this.Email = Email;
+        this.Phone = Phone;
+        this.DateCreated = DateCreated;
+        this.LastModified = LastModified;
+        this.AccountTypeID = AccountTypeID;
+        this.ProfilePicture = ProfilePicture;
+        this.Valid = Valid;
+        this.FullName = FullName;
+    }
 
     public AccountBean() {
+    }
+
+    public AccountBean(AccountBean acc) {
+        this.AccountID = acc.getAccountID();
+        this.Username = acc.getUsername();
+        this.Password = acc.getPassword();
+        this.FirstName = acc.getFirstName();
+        this.LastName = acc.getLastName();
+        this.Email = acc.getEmail();
+        this.Phone = acc.getPhone();
+        this.DateCreated = acc.getDateCreated();
+        this.LastModified = acc.getLastModified();
+        this.AccountTypeID = acc.getAccountTypeID();
+        this.ProfilePicture = acc.getProfilePicture();
+        this.Valid = acc.getValid();
+        this.FullName = acc.getFullName();
+
+    }
+
+    public String getFullName() {
+        return FullName;
+    }
+
+    public void setFullName(String FullName) {
+        this.FullName = FullName;
     }
 
     public AccountBean(int AccountID, String Username, String Password, String FirstName, String LastName, String Email, String Phone, String DateCreated, String LastModified, int AccountTypeID, String ProfilePicture, int Valid) {
@@ -133,6 +181,7 @@ public class AccountBean {
     public void setValid(int Valid) {
         this.Valid = Valid;
     }
+
     public void setProfilePicture(String ProfilePicture) {
         this.ProfilePicture = ProfilePicture;
     }

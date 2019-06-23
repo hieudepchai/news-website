@@ -1,13 +1,22 @@
+
 <%-- 
     Document   : admin_account
     Created on : May 14, 2019, 11:40:27 PM
-    Author     : Admin
+    Author     : DUNG
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
+	<style type="text/css">
+	label.error {
+		display: inline-block;
+		color:red;
+		width: 200px;
+	}
+	</style>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,18 +25,18 @@
 
         <title>Account Magement</title>
 
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- MetisMenu CSS -->
-        <link href="../css/metisMenu.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/metisMenu.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="../css/startmin.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/startmin.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
-        <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css" >
-        <link type="text/css" rel="stylesheet" href="../css/dung-style.css" />
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css" >
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/dung-style.css" />
 
 
     </head>
@@ -39,7 +48,7 @@
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top my-top-nav" role="navigation">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}/admin"><i class="fa fa-home fa-fw"></i>Homepage</a>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/manage/admin"><i class="fa fa-home fa-fw"></i>Homepage</a>
                 </div>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -49,71 +58,18 @@
                 </button>
 
                 <ul class="nav navbar-right navbar-top-links">
-                    <li class="dropdown navbar-inverse">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell fa-fw"></i> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-comment fa-fw"></i> New Comment
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                        <span class="pull-right text-muted small">12 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-tasks fa-fw"></i> New Task
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div>
-                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                        <span class="pull-right text-muted small">4 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a class="text-center" href="#">
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
                             <span class="mr-3 d-none d-lg-inline text-gray-800 small"><c:out value="${sessionScope.CurrentAccount.getFirstName()}"></c:out> <c:out value="${sessionScope.CurrentAccount.getLastName()}"></c:out></span>
-                            <c:set var="ProfilePicSrc" value="${sessionScope.CurrentAcount.getProfilePicture()}"/>
+                            <c:set var="ProfilePicSrc" value="${sessionScope.CurrentAccount.getProfilePicture()}"/>
                             <c:choose>
                                 <c:when test="${ProfilePicSrc!=null}">
-                                    <img class="img-profile rounded-circle" src="sessionScope.CurrentAcount.getProfilePicture()">
+                                    <img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/${ProfilePicSrc}">
                                 </c:when>
                                 <c:when test="${ProfilePicSrc==null}">
-                                    <img class="img-profile rounded-circle" src="../img/user_pro_pic.png">
+                                    <img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/img/user_pro_pic.png">
                                 </c:when>
                             </c:choose>
                         </a>
@@ -123,7 +79,7 @@
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="${pageContext.request.contextPath}/manage/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -145,16 +101,16 @@
                                 <!-- /input-group -->
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="${pageContext.request.contextPath}/manage/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-user fa-fw"></i> Account<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="admin/account" class="active">Account manage</a>
+                                        <a href="${pageContext.request.contextPath}/manage/admin/account" class="active">Account manage</a>
                                     </li>
                                     <li>
-                                        <a href="accounttype.html">Account type</a>
+                                        <a href="${pageContext.request.contextPath}/manage/admin/accounttype" >Account type</a>
                                     </li>
                                 </ul>
 
@@ -164,35 +120,27 @@
                                 <a href="#"><i class="fa fa-files-o fa-fw"></i> Article<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="articles_waiting.html">Waiting for censor</a>
+                                        <a href="${pageContext.request.contextPath}/manage/admin/List-article-waiting">Waiting for censor</a>
                                     </li>
                                     <li>
-                                        <a href="published.html">Published</a>
+                                        <a href="${pageContext.request.contextPath}/manage/admin/List-of-articles" >List of all Articles</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="bookmark.html"><i class="fa fa-bookmark "></i> Bookmark</a>
+                                <a href="${pageContext.request.contextPath}/manage/admin/bookmark"><i class="fa fa-bookmark "></i> Bookmark</a>
                             </li>
                             <li>
-                                <a href="category.html"><i class="fa fa-archive "></i> Category</a>
+                                <a href="${pageContext.request.contextPath}/manage/admin/category" ><i class="fa fa-archive "></i> Category</a>                                
                             </li>
                             <li>
-                                <a href="comment.html"><i class="fa fa-comments "></i> Comment</a>
+                                <a href="${pageContext.request.contextPath}/manage/admin/comment"><i class="fa fa-comments "></i> Comment</a>
                             </li>
-                            <li>
-                                <a href="feedback.html"><i class="fa fa-flag "></i> Feedback</a>
-                            </li>
-                            <li>
-                                <a href="image.html"><i class="fa fa-image "></i> Image</a>
-                            </li>
-
                         </ul>
                     </div>
                 </div>
             </nav>
-
             <div id="page-wrapper">
                 <div class="container-fluid">
                     <div class="row">
@@ -206,8 +154,8 @@
                         <div class="col-sm-12 ">
                             <div class="card">
                                 <h2 style="cursor:s-resize;">Account Information</h2>
-                                <div class="card-body">                                
-                                    <form class="form-horizontal" id="account_form" action="${pageContext.request.contextPath}/admin/account/submit" enctype="multipart/form-data"  method="POST" >                                        
+                                <div class="card-body">                                 
+                                    <form class="form-horizontal" id="account_form" action="${pageContext.request.contextPath}/manage/admin/account/submit" enctype="multipart/form-data"  method="POST" >                                        
                                         <div class="form-group">
                                             <label for="username" class="cols-sm-2 control-label">AccountID</label>
                                             <div class="cols-sm-10">
@@ -215,7 +163,7 @@
                                                     <span class="input-group-addon"><i class="fa fa-users fa"
                                                                                        aria-hidden="true"></i></span>
                                                     <input type="text" class="form-control" name="AccountID"
-                                                           id="inputAccountID" placeholder=""/>
+                                                           id="inputAccountID" placeholder="" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -226,7 +174,7 @@
                                                     <span class="input-group-addon"><i class="fa fa-users fa"
                                                                                        aria-hidden="true"></i></span>
                                                     <input type="text" class="form-control" name="Username"
-                                                           id="inputUsername" placeholder="Enter your Username" />
+                                                           id="inputUsername" placeholder="Enter your Username" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -237,7 +185,7 @@
                                                     <span class="input-group-addon"><i class="fa fa-lock fa-lg"
                                                                                        aria-hidden="true"></i></span>
                                                     <input type="password" class="form-control" name="Password"  id="inputPassword"
-                                                           placeholder="Enter your Password"  disabled="disabled"/>
+                                                           placeholder="Enter your Password"  disabled="disabled" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -247,9 +195,9 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-lock fa-lg"
                                                                                        aria-hidden="true"></i></span>
-                                                    <input type="password" class="form-control" id="inputRePassword"
+                                                    <input type="password" class="form-control" id="inputRePassword" name="ConfirmPassword"  
                                                            placeholder="Confirm your Password"
-                                                           disabled="disabled" />
+                                                           disabled="disabled" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -260,7 +208,7 @@
                                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                                        aria-hidden="true"></i></span>
                                                     <input type="text" class="form-control" name="FirstName" id="inputFirstName"
-                                                           placeholder="Enter your first name" />
+                                                           placeholder="Enter your first name" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -271,7 +219,7 @@
                                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                                        aria-hidden="true"></i></span>
                                                     <input type="text" class="form-control" name="LastName" id="inputLastName"
-                                                           placeholder="Enter your last name" />
+                                                           placeholder="Enter your last name" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +230,7 @@
                                                     <span class="input-group-addon"><i class="fa fa-envelope fa"
                                                                                        aria-hidden="true"></i></span>
                                                     <input type="text" class="form-control" name="Email" id="inputEmail"
-                                                           placeholder="Enter your Email" />
+                                                           placeholder="Enter your Email" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,7 +242,7 @@
                                                     <span class="input-group-addon"><i class="fa fa-phone fa"
                                                                                        aria-hidden="true"></i></span>
                                                     <input type="text" class="form-control" name="Phone" id="inputPhone"
-                                                           placeholder="Enter your phone" />
+                                                           placeholder="Enter your phone" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -311,7 +259,7 @@
                                             <div class="input-group wrap-inputfile" name="">
                                                 <span class="input-group-addon"><i class="fa fa-file"
                                                                                    aria-hidden="true"></i></span>
-                                                <input type="text" class="form-control" id="upper-inputfile"
+                                                <input type="text" class="form-control" id="upper-inputfile" name="ProfilePicture1"
                                                        placeholder='Choose a file...' />
                                                 <input type="file" name="ProfilePicture" class="form-control" id="lower-inputfile"
                                                        placeholder='Choose a file...' />
@@ -331,8 +279,8 @@
                                                 <input id="hidden-input" type="hidden" name="action">
                                                 <div class="btn btn-success" id="mybtn-add">Add</div>
                                                 <div class="btn btn-success" id="mybtn-edit">Edit</div>
-                                                <div class="btn btn-success" id="mybtn-delete">Delete</div>
-                                                <button type="button" class="btn btn-info" id="mybtn-save" disabled >Save</button>
+                                                <div class="btn btn-success" id="mybtn-delete">Ban</div>
+                                                <button type="submit" class="btn btn-info" id="mybtn-save" disabled >Save</button>
                                                 <div class="btn btn-danger" id="mybtn-reset">Reset</div>
                                             </div>
                                         </div>                                      
@@ -384,7 +332,7 @@
                                         <td class="td-LastName">${account.getLastName()}</td>
                                         <td class="td-Email">${account.getEmail()}</td>
                                         <td class="td-Phone">${account.getPhone()}</td>
-                                        <td class="td-AccountTypeID">${ sessionScope.TypeMap.getForward(account.getAccountTypeID())}</td>
+                                        <td class="td-AccountTypeID">${sessionScope.TypeMap.getForward(account.getAccountTypeID())}</td>
                                         <td class="td-ProfilePicture">${account.getProfilePicture()}</td>
                                         <td class="td-Valid">${account.getValid()}</td>
                                         <td class="td-DateCreated">${account.getDateCreated()}</td>
@@ -404,18 +352,61 @@
         <!-- /#wrapper -->
 
         <!-- jQuery -->
-        <script src="../js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
-        <script src="../js/bootstrap.min.js"></script>
-
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.validate.min.js"></script>
         <!-- Metis Menu Plugin JavaScript -->
-        <script src="../js/metisMenu.min.js"></script>
-
+        <script src="${pageContext.request.contextPath}/js/metisMenu.min.js"></script>
         <!-- Custom Theme JavaScript -->
-        <script src="../js/startmin.js"></script>
-        <script src="../js/dung.js"></script>
-        <script src="../js/admin_account.js"></script>
+        <script src="${pageContext.request.contextPath}/js/startmin.js"></script>
+        <script src="${pageContext.request.contextPath}/js/dung.js"></script>
+        <script src="${pageContext.request.contextPath}/js/admin_account.js"></script>
+        <script>
+               $(document).ready(function() {
+        		$("#account_form").validate({
+			rules: {
+                                AccountID:"required",
+                                Password:"required",
+				Username: "required",
+				FirstName: "required",
+				LastName: "required",
+                                Email:{
+                                    required: true,
+                                    email: true
+                                },
+                                ConfirmPassword: {
+                                    required:true,
+                                    equalTo: "#inputPassword"
+                                },
+				Phone: {
+					required: true,
+					minlength: 9,
+				}
+			},
+			messages: {
+                                AccountID:"Please input ID",
+                                Password:"Please input Password",
+                                Username:"Please input Username",
+				FirstName: "Please input first name",
+				LastName: "Please input last name",
+                                Email: {
+					required: "Please input email address",
+					email: "Not a valid email address"
+				},
+				Phone: {
+					required: "Please input phone",
+					minlength: "Too short!",
+				},
+                                ConfirmPassword: {
+					required: "Please confirm password",
+					equalTo: "Password not missmatch"
+				}
+			}
+		});
+	});
+        </script>
     </body>
 
 </html> 

@@ -10,28 +10,41 @@ package nw.bean;
  * @author quan1
  */
 public class MessageBean {
-    private int FeedbackID;
+    private int MessageID;
     private int ArticleID;
-    private int AdminID;
+    private int SenderID;
+    private int ReceiverID;
+    private int RepliedMessageID;
     private String Content;
     private String DateCreated;
     
     public MessageBean() {
     }
 
-    public MessageBean(int FeedbackID, int ArticleID, int AdminID, String Content, String DateCreated) {
-        this.FeedbackID = FeedbackID;
+    public MessageBean(int MessageID, int ArticleID, int SenderID, int ReceiverID, int RepliedMessageID, String Content, String DateCreated) {
+        this.MessageID = MessageID;
         this.ArticleID = ArticleID;
-        this.AdminID = AdminID;
+        this.SenderID = SenderID;
+        this.ReceiverID = ReceiverID;
+        this.RepliedMessageID = RepliedMessageID;
         this.Content = Content;
         this.DateCreated = DateCreated;
     }
-    public int getFeedbackID() {
-        return FeedbackID;
+    
+    public MessageBean(int ArticleID, int SenderID, int ReceiverID, int RepliedMessageID, String Content) {
+        this.ArticleID = ArticleID;
+        this.SenderID = SenderID;
+        this.ReceiverID = ReceiverID;
+        this.RepliedMessageID = RepliedMessageID;
+        this.Content = Content;
     }
 
-    public void setFeedbackID(int FeedbackID) {
-        this.FeedbackID = FeedbackID;
+    public int getMessageID() {
+        return MessageID;
+    }
+
+    public void setMessageID(int MessageID) {
+        this.MessageID = MessageID;
     }
 
     public int getArticleID() {
@@ -42,12 +55,28 @@ public class MessageBean {
         this.ArticleID = ArticleID;
     }
 
-    public int getAdminID() {
-        return AdminID;
+    public int getSenderID() {
+        return SenderID;
     }
 
-    public void setAdminID(int AdminID) {
-        this.AdminID = AdminID;
+    public void setSenderID(int SenderID) {
+        this.SenderID = SenderID;
+    }
+
+    public int getReceiverID() {
+        return ReceiverID;
+    }
+
+    public void setReceiverID(int ReceiverID) {
+        this.ReceiverID = ReceiverID;
+    }
+
+    public int getRepliedMessageID() {
+        return RepliedMessageID;
+    }
+
+    public void setRepliedMessageID(int RepliedMessageID) {
+        this.RepliedMessageID = RepliedMessageID;
     }
 
     public String getContent() {
@@ -65,4 +94,6 @@ public class MessageBean {
     public void setDateCreated(String DateCreated) {
         this.DateCreated = DateCreated;
     }
+    
+    
 }

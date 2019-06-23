@@ -3,185 +3,28 @@
     Created on : May 4, 2019, 9:57:19 AM
     Author     : quan1
 --%>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Compose</title>
+    <title>${title}</title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+     <%@ include file="/css.jsp" %> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/editor.css" />
 
-    <!--<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />-->
-    <link type="text/css" rel="stylesheet" href="../css/style-quan.css" />
-    <link type="text/css" rel="stylesheet" href="../css/all.min.css" />
-    <link type="text/css" rel="stylesheet" href="../css/admin.content.css" />
-    <link type="text/css" rel="stylesheet" href="../css/editor.css" />
-
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <nav class="navbar navbar-expand bg-white topbar static-top">
-        <div class="topbar-brand d-flex align-items-center">
-            <a title="Main menu" class="topbar-brand-icon br-50 px-3 py-2" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </a>
-            <div class="topbar-brand-text mx-3">qhd</div>
-        </div>
-        <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <!-- Counter - Alerts -->
-                    <span class="badge badge-danger badge-counter">3+</span>
-                </a>
-                <!-- Dropdown - Alerts -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">
-                        Alerts Center
-                    </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-primary">
-                                <i class="fas fa-file-alt text-white"></i>
-                            </div>
-                        </div>
-                        <div class="text-break">
-                            <div class="small text-gray-500">December 12, 2019</div>
-                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-success">
-                                <i class="fas fa-donate text-white"></i>
-                            </div>
-                        </div>
-                        <div class="text-break">
-                            <div class="small text-gray-500">December 7, 2019</div>
-                            $290.29 has been deposited into your account!
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-warning">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                        </div>
-                        <div class="text-break">
-                            <div class="small text-gray-500">December 2, 2019</div>
-                            Spending Alert: We've noticed unusually high spending for your account.
-                        </div>
-                    </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                </div>
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-3 d-none d-lg-inline text-gray-800 small">Valerie Luna</span>
-                    <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-btn dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="profile-writer.html">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Settings
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Activity Log
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </nav>
+<body>    
+    <jsp:include page="/journalist_header.jsp" flush="true"/>
 
     <div id="wrapper">
         <!--Menu-->
-        <ul id="accordionSidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark">
-
-            <li class="nav-item my-1">
-                <a class="nav-link" href="dashboard-writer.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span class="mx-3">Dashboard</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider" />
-            <li class="nav-item active">
-                <a name="dropdownAr" class="nav-link collapsed" aria-controls="collapseTwo" data-target="#collapseTwo" data-toggle="collapse">
-                    <i class="fas fa-newspaper"></i>
-                    <span class="mx-3">Article</span>
-                </a>
-
-            </li>
-            <form method="get" action="journalistComposeServlet">
-                <li class="nav-item active d-none mb-0" name="article">
-                    <button type="submit" class="nav-link pl-4">
-                        <i class="fas fa-fw fa-feather-alt"></i>
-                        <span class="mx-2">Compose</span>
-                    </button>
-                </li>
-            </form>
-            <li class="nav-item d-none" name="article">
-                <a class="nav-link pl-4" href="listOfArticle-writer.html">
-                    <i class="fas fa-fw fa-list-alt"></i>
-                    <span class="mx-2">List of articles</span>
-                </a>
-            </li>
-            <li class="nav-item d-none" name="article">
-                <a class="nav-link pl-4" href="draft-writer.html">
-                    <i class="fas fa-fw fa-file"></i>
-                    <span class="mx-2">Drafts</span>
-                </a>
-            </li>
-            <form method="get" action="journalistLibaryServlet">
-                <li class="nav-item mb-0">
-                    <button type="submit" class="nav-link">
-                        <i class="fas fa-image"></i>
-                        <span class="mx-3">Libary</span>
-                    </button>
-                </li>
-            </form>
-            <li class="nav-item">
-                <a class="nav-link" href="inbox-writer.html">
-                    <i class="fas fa-inbox"></i>
-                    <span class="mx-2">Comments</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="trash-writer.html">
-                    <i class="fas fa-trash-alt"></i>
-                    <span class="mx-2">Trash</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider" />
-            <li class="nav-item">
-                <a class="nav-link d-flex" href="profile-writer.html">
-                    <div class="img-profile">
-                        <img class="rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <span class="text-gray-900 ml-2 mt-2">Valerie Luna</span>
-                </a>
-            </li>
-        </ul>
-        <form id="form1" method="post" action="journalistComposeServlet" enctype="multipart/form-data">
+        <jsp:include page="/journalist_navMenu.jsp" flush="true"/>
+        <form id="form1" method="post" action="${pageContext.request.contextPath}/manage/journalist/compose" enctype="multipart/form-data">
             <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
 
@@ -197,8 +40,87 @@
                                 <input class="shadow form-subject form-control-subject font-weight-bold" id="subjectInput" name="subjectInput" type="text" placeholder="Subject" />
                             </div>
                             <div>
-                                <input type="file" name="videoImage" accept="file_extension|audio/*|video/*|image/*|media_type*" size="60"/>
-                                    
+                                <button id="addImgTopic" type="button" class="mr-auto d-inline-block btn btn-sm btn-primary shadow-sm px-3 py-1" data-toggle="modal" data-target="#addImgModal" data-backdrop="static" data-keyboard="true">
+                                    <i class=" mr-2 fas fa-upload"></i>
+                                    Insert Image Topic
+                                </button>
+    <div class="modal fade" id="addImgModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog-11">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h5 class="modal-title text-gray-900">Insert image</h5>
+                    
+                </div>
+                <div class="modal-body">                    
+                    
+                    <div class="row">
+                        <div id="imgErrMsg" style="width: 100%;"></div>
+                        <div class="tabbable tabs-left">
+                            <ul class="nav nav-tabs">
+                                <li name='articleImage' class="">
+                                    <a aria-expanded="true" href="#prevArticleImg" data-toggle="tab">Article Image</a>
+                                </li>
+                                <li name='fromComputer' class="active">
+                                    <a aria-expanded="true" href="#uploadImageBar" data-toggle="tab">From Computer</a>
+                                </li>
+                                <li class="">
+                                    <a aria-expanded="true" href="#imageFromLibary" data-toggle="tab">From Libary</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="prevArticleImg">
+                                <div class="PrevArticleImgForm row ml-auto mt-2" name="addMoreImg">                        
+                                    <c:forEach items="${listImageArticle}" var="image">
+                                        <c:choose>
+                                            <c:when test="${image.getThumbnail() == 1}">
+                                                <a class="ImgPreviewModal my-1 mx-1" href="javascript:void(0)" title="Image Topic">
+                                                    <img class="" src="${pageContext.request.contextPath}/${image.getSource()}" height="120" width="150"/>
+                                                </a>
+                                                <input type='hidden' name='prevTopicImg' value="${pageContext.request.contextPath}/${image.getSource()}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="ImgPreviewModal my-1 mx-1" href="javascript:void(0)">
+                                                    <img class="" src="${pageContext.request.contextPath}/${image.getSource()}" height="120" width="150"/>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        
+                                    </c:forEach> 
+                                </div>
+                            </div>
+                            <div class="tab-pane active" id="uploadImageBar">
+                                <input class="inline-form-control" type="file" id="videoImage" name="videoImage" accept="file_extension|audio/*|video/*|image/*|media_type*" size="60" style="width: 400px"/>
+                                <div name="previewTopicImg" class="ImgPreviewModal my-4 ml-3" style="display: none">
+                                    <img id="previewTopicImg" class="mx-0" width="150" height="120"/>
+                                </div>
+                                <div name="loader" class="mt-5 mb-4 ml-6"></div>
+                            </div>
+                            <div class="tab-pane" id="imageFromLibary">
+                                <div class="addImgForm row ml-auto mt-2" name="addMoreImg">                        
+                                    <c:forEach items="${sessionScope.listImage}" var="item">
+                                        <a class="ImgPreviewModal my-1 mx-1" href="javascript:void(0)">
+                                            <img class="" src="${pageContext.request.contextPath}/${item.getSource()}" height="120" width="150"/>
+                                        </a>
+                                    </c:forEach> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button id="InsertImgDone" class="btn btn-success" type="button">Done</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<!--                                <input type="file" id="file" name='file' value='editorImg' accept="file_extension|audio/*|video/*|image/*|media_type*" style="display: none"/> -->
+<!--                                <input type="file" data-role="magic-overlay" data-target="#addImg" data-edit="insertImage" />-->
                             </div>
                             <div class="container">
                                 <div class="row">
@@ -207,7 +129,14 @@
                                         <textarea id="txtEditor" class="form-subject form-control-subject"></textarea>
                                     </div>
                                         <input type="hidden" name="selectedVehicles" id="selectedVehicles"/>
+                                        <input type="hidden" name="ArticleID"/>
+                                        <input type="hidden" name="ArticleStatus"/>
+                                        <input type="hidden" name="journalistID"/>
                                 </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mt-4">
+                                    <button type='button' id="saveArticle" name='save' value="Article" class="ml-3 mr-5 btn btn-sm btn-primary shadow-sm" title="Save as uncensored article">Save Article</button>
+                                    <button type='button' id="saveDraft" name='save' value="Draft" class="mr-auto btn btn-sm btn-primary shadow-sm" title="Save as draft">Save Draft</button>                                     
                             </div>
                         </div>
                         <div class="col-xl-3">
@@ -219,8 +148,7 @@
                                 <!--card body-->
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-center mb-1">
-                                        <button type="button" name="saveDraft" class="mr-auto d-inline-block btn btn-sm btn-primary shadow-sm">Save draft</button>
-                                        <a name="btnPreview" class="ml-auto d-inline-block btn btn-sm btn-primary shadow-sm">Preview</a>                                        
+                                        <a name="btnPreview" class="mr-auto btn btn-sm btn-primary shadow-sm">Preview</a>                                        
                                     </div>
                                     
                                     <div id="previewContainer" class="fullscreen-container">
@@ -233,15 +161,12 @@
                                             <div class="pre-content flex-column">
                                                 <div class="form-popup-form">
                                                     <img name="topicImg" class="mx-2 my-2" height="400" width="100%" />
-                                                    <!--<a href="javascript:void(0)" class="thumbnail">
-                                                        <img src="" title="" />
-                                                    </a>-->
                                                     <h3 name="subjectAr" class="font-weight-bold text-gray-900">anh yeu am</h3>
-                                                    <h6 name="timeAr" class="text-gray-400 mt-0" style="text-transform:uppercase;">anh yeu em</h6>
-                                                    <div class="mt-4" name="contentAr"></div>
+                                                    <h6 name="timeAr" class="text-gray-400 mt-0" style="text-transform:uppercase;"></h6>
+                                                    <div class="mt-4 text-gray-900" name="contentAr"></div>
                                                     <div class="d-flex mt-4">
-                                                        <a name="cate1" class="px-3 py-1" href="#" style="border: 1px solid;">World</a>
-                                                        <a name="cate2" class="ml-1 px-3 py-1" href="#" style="border: 1px solid;">Asia</a>
+                                                        <a name="cate1" class="px-3 py-1" href="javascript:void(0)" style="border: 1px solid;">World</a>
+                                                        <a name="cate2" class="ml-1 px-3 py-1" href="javascript:void(0)" style="border: 1px solid;">Asia</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -265,17 +190,11 @@
                                         </div>
                                         <div class="text-gray-900">Upload: <b>Now</b> <a class="ml-1" href="#">edit</a></div>
                                     </div>
-                                    <div class="row no-gutters align-items-center mb-1">
+                                    <div class="row no-gutters align-items-center mb-2">
                                         <div class="col-1 ml-0">
                                             <i class="fab fa-vimeo-v"></i>
                                         </div>
-                                        <div class="text-gray-900">Readability: <b>Need improvement</b> </div>
-                                    </div>
-                                    <div class="row no-gutters align-items-center mb-1">
-                                        <div class="col-1 ml-0">
-                                            <i class="fab fa-vimeo-v"></i>
-                                        </div>
-                                        <div class="text-gray-900">SEO: <b>Off</b> </div>
+                                        <div class="text-gray-900">Readability:<b>Need improvement</b> </div>
                                     </div>
                                 </div>
                             </div>                            
@@ -335,8 +254,8 @@
                                     </div>
 
                                     <div class="row no-gutters mb-1">
-                                        <input class="col-2 ml-0 radio chb4" type="checkbox" name="category" value="Opinion"/>
-                                        <label class="text-gray-900">Opinion</label>
+                                        <input class="col-2 ml-0 radio chb4" type="checkbox" name="category" value="Education"/>
+                                        <label class="text-gray-900">Education</label>
                                     </div>
 
                                     <div class="row no-gutters mb-1">
@@ -400,24 +319,53 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xl-7 mb-4">
                             <div class="card shadow">
                                 <!--card header-->
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Note</h6>
                                 </div>
                                 <!--card body-->
-                                <div class="card-body">
+                                <div class="card-mess-body">
+                                    <div id="prevMessage" class="row-message Previous-message-form">
+                                        <c:set  var="admin" value="${AdminEditor}"></c:set>
+                                        <c:forEach items="${listMessage}" var="mess">
+                                            <c:choose>
+                                                <c:when test="${admin.get(mess.getSenderID()) == null}">
+                                                    <div class="col-12 mt-2 mr-3" >
+                                                        <p class="small messageSend my-0 pr-2" title="${mess.getDateCreated()}" >${mess.getContent()}</p>    
+                                                    </div>
+                                                </c:when>
+                                                <c:when test="${admin.get(mess.getSenderID()) != null}">
+                                                    <div class="col-12 ml-1 mt-2 d-flex" >
+                                                        <c:choose>
+                                                            <c:when test="${admin.get(mess.getSenderID()).getProfilePicture() == null}">
+                                                                <img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/img/profilepic/pric1.png">
+                                                            </c:when>
+                                                            <c:when test="${admin.get(mess.getSenderID()).getProfilePicture() != null}">
+                                                                <img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/${admin.get(mess.getSenderID()).getProfilePicture()}">
+                                                            </c:when>
+                                                        </c:choose>
+                                                        
+                                                        <p class="ml-1 small messageReceive my-0 pl-2" title="${mess.getDateCreated()}" >${mess.getContent()}</p>
+                    
+                                                    </div>
+                                                </c:when>
+                                            </c:choose>
+                                        </c:forEach>
+                                        
+                                    </div>
                                     <div class="form-group">
-                                            <textarea id="note" name="note" class="form-subject form-control-subject h-6 text-monospace"></textarea>
+                                        <textarea id="note" name="note" onkeyup="new do_resize(this);" class="form-mess-subject textareaImputMess mt-2" rows="1"></textarea>
                                     </div>
                                     
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-7 mb-4">
+                            
                         </div>
                     </div>
                 </div>
@@ -435,61 +383,31 @@
         
     </div>
 
-    <!-- log out -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="index.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/admin-writer.js"></script>
-    <script src="../js/editor.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/js/admin-writer.js"></script>
+    <script src="${pageContext.request.contextPath}/js/editor.js"></script>
     <script>
         $(document).ready(function () {
+            $("#accordionSidebar li[name = dropdown]").addClass("active"); 
+            $("#compose").addClass("active"); 
             $("#txtEditor").Editor();
         });
     </script>
-    <script type="text/javascript">
-
-    function processEditor()
-    {
-        
-        var hiddenSelectedVehicles = document.getElementById("selectedVehicles");
-        hiddenSelectedVehicles.value = $(".Editor-editor").html();
-        alert(hiddenSelectedVehicles.value());
-        // jQuery
-        /* $("#selectedVehicles").value(selectedVehicleTypes.join(",")); */
-        
-        // Submit the form using javascript
-        var form = document.getElementById("form1");
-        form.submit();
-        
-        //jQuery
-        /* $("#vehicles").submit(); */
-    }
+    <script>
+        var buttonClick = 0; //0: addImgTopic & 1: addImg
+        var keyImg = 0; //0: from libary & 1: from computer
+        var source;
+        var sourcechosen = null;
+    $("#addImgTopic").click(function(){
+        buttonClick = 1;
+    });
     
-    $("button[name = saveDraft]").click(function(){
-        $("#selectedVehicles").val($(".Editor-editor").html()); 
-        
-         var error = 0;
-        var subject = $("#subjectInput").val();
+    $('button[name = save]').click(function(){
+        var error = 0;
         var content = $(".Editor-editor").html();
-        
+        //alert(content);
+        $("#selectedVehicles").val(content);
+        var subject = $("#subjectInput").val();
         var countCb = $("#categories div > input:checked").length;  //number of checkboxes checked
 
         if (subject === '') {  //subject
@@ -498,11 +416,11 @@
             return;
         }; 
         
-        if ($("input[name=videoImage]").get(0).files.length === 0){
-            alert("Please choosing an image topic!");
-            error = 1;
-            return;
-        }
+//        if ($("input[name=videoImage]").get(0).files.length === 0){
+//            alert("Please choosing an image topic!");
+//            error = 1;
+//            return;
+//        }
 
         if (content === '<br>') {  //content
             alert("Please entering the article content!");
@@ -518,10 +436,218 @@
 
         if (error === 0)
         {
-            $("#form1").submit();
+            //$("#form1").submit();
             $(this).attr("type", "submit");
         }
     });
-</script>
-</body>
+    
+    function InsImg(srcImgCurrent) {
+                        //methods.restoreSelection.apply(this);
+                        if (srcImgCurrent) {
+                                document.execCommand('insertimage', false, srcImgCurrent);
+                                $(".Editor-editor img").css({ 'max-height': '550px', 'max-width': '800px' }); 
+//                                var div = $('<div/>').appendTo('.Editor-editor');
+//                                var image = $('<img/>',{
+//                                    src: srcImgCurrent,
+//                                    style: "max-height:550px; max-width: 800px"
+//                                                                                                                               
+//				}).appendTo(div);
+                        }
+                        else {
+                            alert('Please insert again!!!');
+                            return false;
+                        }
+
+                        //$(this).data("editor").focus();
+                }
+                $("#videoImage").on('change', function () {
+                    //$("#form1").submit();
+                    var form = $("#form1")[0];
+                    var data = new FormData(form);
+                    $.ajax({
+                        type: "post",
+                        encType : "multipart/form-data",
+                        url : "${pageContext.request.contextPath}/manage/journalist/compose",
+                        cache : false,
+                        processData : false,
+                        contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: jQuery.param({buttonClick: buttonClick}),
+                        
+                        success: function(){
+                            
+                        },
+                        error : function(msg) {
+                            alert("Couldn't send button click, error: " + msg);
+                        }
+                    });
+                    $.ajax({
+                        type: "post",
+                        encType : "multipart/form-data",
+                        url : "${pageContext.request.contextPath}/manage/journalist/compose",
+                        cache : false,
+                        processData : false,
+                        contentType : false,
+                        data: data,
+                        
+                        success: function(responseText){
+                            source = "${pageContext.request.contextPath}/" + responseText;  
+                            $("div[name = previewTopicImg]").css('display', 'none');
+                            $("div[name = loader]").addClass("loader");
+                            setTimeout(function(){ 
+                                $("#previewTopicImg").attr('src', source);
+                                $("div[name = previewTopicImg]").css('display', 'block');
+                                $("div[name = loader]").removeClass("loader");
+                            }, 2000);
+                            
+                            keyImg = 1;
+                        },
+                        error : function(msg) {
+                            alert("Couldn't upload file, error: " + msg);
+                        }
+                    });
+                    
+                });
+    
+    $(".ImgPreviewModal").click(function(){
+        $(".ImgPreviewModal").css('border-color', '#ddd');
+        $(this).css('border-color', 'blue');
+        
+        sourcechosen = $(this).children().attr('src');
+    });
+    
+    $("#InsertImgDone").click(function(){
+        //var error = 0;
+        if (sourcechosen === null){            
+            var message = "Please select an image.";
+            var errorDiv=$('<div/>',{ class:"alert alert-danger"	}
+				).append($('<button/>',{
+									type:"button",
+									class:"close",
+									"data-dismiss":"alert",
+									html:"x"
+				})).append($('<span/>').html(message));
+			errorDiv.appendTo($('#imgErrMsg'));
+			setTimeout(function() { $('.alert').alert('close'); }, 3000);	
+            return;
+        }
+        
+        if (keyImg === 1){
+            if (source !== sourcechosen){
+                    $.ajax({
+                        type: "post",
+                        encType : "multipart/form-data",
+                        url : "${pageContext.request.contextPath}/manage/journalist/compose",
+                        cache : false,
+                        processData : false,
+                        contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: jQuery.param({
+                            keyImg: keyImg, 
+                            source: source,
+                            sourcechosen: sourcechosen,
+                            buttonClick2: buttonClick
+                        }),
+                        
+                        success: function(){
+                            
+                        },
+                        error : function(msg) {
+                            alert("Couldn't delete file, error: " + msg);
+                        }
+                    });
+            }        
+        } else if (keyImg === 0){
+                    $.ajax({
+                        type: "post",
+                        encType : "multipart/form-data",
+                        url : "${pageContext.request.contextPath}/manage/journalist/compose",
+                        cache : false,
+                        processData : false,
+                        contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: jQuery.param({
+                            keyImg: keyImg, 
+                            sourcechosen: sourcechosen,
+                            buttonClick2: buttonClick
+                        }),
+                        
+                        success: function(){
+                            
+                        },
+                        error : function(msg) {
+                            alert("Couldn't delete file, error: " + msg);
+                        }
+                    });
+        }
+        
+        if (buttonClick === 0 ){
+            InsImg(sourcechosen);
+        }
+        if (buttonClick === 1 ){ //set image at preview form
+            $("img[name = topicImg]").attr({ 'src': sourcechosen});
+        }
+        $("#addImgModal").modal('toggle');
+        $(".ImgPreviewModal").css('border-color', '#ddd');
+        keyImg = 0;
+        sourcechosen = null;
+    });
+    
+    function do_resize(textbox) {
+
+        var maxrows=4; 
+        var txt=textbox.value;
+        var cols=textbox.cols;
+
+        var arraytxt=txt.split('\n');
+        var rows=arraytxt.length; 
+
+        for (i=0;i<arraytxt.length;i++) 
+            rows+=parseInt(arraytxt[i].length/cols);
+
+        if (rows>maxrows) textbox.rows=maxrows;
+            else textbox.rows=rows;
+        
+        $("#note").trigger('heightChange');
+    }
+    
+    $("#note").bind('heightChange', function(){
+        var height = $(this).height();
+        var PrevHeight = 250 - height - 10;
+        $("#prevMessage").css('height', PrevHeight);
+    });
+    
+    <c:set  var="article" value="${Article}"></c:set>
+    <c:set  var="cate" value="${sessionScope.listCate}"></c:set>
+    $(document).ready(function(){
+        var heading = "${article.getHeading()}";
+        
+        if (heading !== ""){
+            $("img[name = topicImg]").attr({ 'src': $("input[name = prevTopicImg]").val()});
+            
+            $("li[name = articleImage]").css('display', 'block');
+            $("li[name = articleImage]").addClass("active");
+            $("#prevArticleImg").addClass("active");
+            $("li[name = fromComputer]").removeClass("active");
+            $("#uploadImageBar").removeClass("active");
+            
+            $("input[name = journalistID]").val(${article.getJournalistID()});
+            
+            var LastModified = new Date(Date.parse("${article.getDateCreated()}"));
+            $("h6[name = timeAr]").text(LastModified.toDateString());
+            $("input[name = ArticleID]").val(${article.getArticleID()});
+            $("input[name = ArticleStatus]").val(${article.getDraft()});
+            $("#subjectInput").val(heading);
+            var editor = `${article.getShortDescription()}${article.getContent()}`;
+            $(".Editor-editor").append(editor);
+            $("input[value = ${cate.get(article.getCategoryID())}]").prop('checked', true);
+            $("input[value = ${cate.get(article.getSubCategoryID())}]").prop('checked', true);                  
+                        
+            
+        } else{
+            $("li[name = articleImage]").css('display', 'none');
+            $("li[name = fromComputer]").addClass("active");
+            $("#uploadImageBar").addClass("active");
+        }
+                
+    });
+    </script>
+</body>              
 </html>

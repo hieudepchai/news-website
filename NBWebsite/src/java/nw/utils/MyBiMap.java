@@ -24,7 +24,9 @@ public class MyBiMap<K extends Object, V extends Object> {
   public synchronized V getForward(K key) {
     return forward.get(key);
   }
-
+  public Map<K,V> getForwardMap(){
+      return forward;
+  }
   public synchronized K getBackward(V key) {
     return backward.get(key);
   }

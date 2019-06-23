@@ -5,23 +5,31 @@
  */
 package nw.controller;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.util.Pair;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 //import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import nw.bean.*;
 import nw.dao.*;
+import nw.utils.ImageLib;
 
 
 /**
@@ -33,9 +41,9 @@ import nw.dao.*;
     maxFileSize = 1024 * 1024 * 100, // 100MB
     maxRequestSize = 1024 * 1024 * 100) // 100MB
 public class journalistLibaryServlet extends HttpServlet {
-    private int journalistID = 26;
-    //private final List<String> listSrc = new ArrayList<>();
-    private static final String SAVE_DIR = "quan";
+    private static final long serialVersionUID = 1L;
+    //private String SAVE_DIR = "";
+    private int journalistID = 0;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,18 +82,23 @@ public class journalistLibaryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ImageDAO imgDAO = new ImageDAO();
-        List<String> listSrc = new ArrayList<>();
-        try {
-            List<Image> listImg = imgDAO.getAllImage(journalistID);
-            listImg.forEach((img) -> {
-                listSrc.add(img.getSource());
-            });
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(journalistLibaryServlet.class.getName()).log(Level.SEVERE, null, ex);
+        HttpSession session = request.getSession();     
+        
+        AccountBean journalist = (AccountBean) session.getAttribute("CurrentAccount");
+        journalistID = journalist.getAccountID();   
+        
+        List<Pair<String, String>> nameSource = (List<Pair<String, String>>) session.getAttribute("fileNameAndSource");
+        if(nameSource == null){
+            List<Image> listImage = (List<Image>) session.getAttribute("listImage");        
+            List<Pair<String, String>> fileNameAndSource = new ArrayList<>();
+            for(int i = 0; i< listImage.size(); i++){
+                String[] sourcePart = listImage.get(i).getSource().split("/");
+                String fileName = sourcePart[sourcePart.length - 1];
+                fileNameAndSource.add(new Pair<>(fileName, listImage.get(i).getSource()));
+            }  
+            session.setAttribute("fileNameAndSource", fileNameAndSource);
         }
-        request.setAttribute("listImage", listSrc);
+
         getServletContext().getRequestDispatcher("/journalist_libary.jsp").forward(request, response);
     }
 
@@ -100,6 +113,8 @@ public class journalistLibaryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();  
+        ImageDAO imgDAO = new ImageDAO();
         List<String> listSrc = new ArrayList<>();
         //get save path
         String relativePath = "\\web\\img";
@@ -110,7 +125,7 @@ public class journalistLibaryServlet extends HttpServlet {
         String[] src = appPath.split("(?<=NBWebsite)", 2);
         appPath = src[0] + relativePath;
         // constructs path of the directory to save uploaded file
-        String savePath = appPath + File.separator + SAVE_DIR;
+        String savePath = appPath + File.separator + journalistID;
          
         // creates the save directory if it does not exists
         File fileSaveDir = new File(savePath);
@@ -124,15 +139,44 @@ public class journalistLibaryServlet extends HttpServlet {
             try {
                 //InputStream fileContent = filePart.getInputStream();
                 filePart.write(savePath + File.separator + fileName);
-                String ImgSrc = "../img/" + SAVE_DIR + "/" + fileName;
+                String ImgSrc = "img/" + journalistID + "/" + fileName;
                 listSrc.add(ImgSrc);
             } catch (IOException ex) {
                 Logger.getLogger(journalistLibaryServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         
-        request.setAttribute("listImage", listSrc);
-        getServletContext().getRequestDispatcher("/journalist_libary.jsp").forward(request, response);
+        //update session
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        Date date = new Date(); 
+        String currentTime = formatter.format(date);  
+        
+        List<Image> listImage = (List<Image>) session.getAttribute("listImage");
+        List<Pair<String, String>> fileNameAndSource = (List<Pair<String, String>>) session.getAttribute("fileNameAndSource");
+        for (int i=0; i<listSrc.size(); i++){
+            Image img0 = new Image(listSrc.get(i), 0, journalistID, 0);
+            img0.setDateCreated(currentTime);
+            ImageLib.insertNewImg(img0);
+            listImage.add(img0);
+//            try {
+//                imgDAO.InsertImage(img0);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(journalistComposeServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            String[] sourcePart = listSrc.get(i).split("/");
+            String fileName = sourcePart[sourcePart.length - 1];
+            fileNameAndSource.add(new Pair<>(fileName, listSrc.get(i)));
+        }                       
+        
+        session.setAttribute("listImage", listImage);
+        session.setAttribute("fileNameAndSource", fileNameAndSource);
+        
+        Gson gson = new Gson();
+        JsonElement element = gson.toJsonTree(listSrc, new TypeToken<List<String>>(){}.getType());
+        JsonArray jsonArray = element.getAsJsonArray();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().print(jsonArray);
     }
 
     /**

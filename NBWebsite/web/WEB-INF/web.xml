@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    </filter>
+    <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>nw.filter.LoginFilter</filter-class>
     </filter>
@@ -13,17 +17,27 @@
         <filter-class>nw.filter.JournalistLoginFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
+        <filter-name>UrlRewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/manage/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>AdminLoginFitlter</filter-name>
-        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/manage/admin/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>JournalistLoginFilter</filter-name>
-        <url-pattern>/journalist/*</url-pattern>
+        <url-pattern>/manage/journalist/*</url-pattern>
     </filter-mapping>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>nw.listener.MyContextListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>adminLoginServlet</servlet-name>
         <servlet-class>nw.controller.adminLoginServlet</servlet-class>
@@ -39,6 +53,22 @@
     <servlet>
         <servlet-name>adminDashboardServlet</servlet-name>
         <servlet-class>nw.controller.adminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminAccountTypeServlet</servlet-name>
+        <servlet-class>nw.controller.adminAccountTypeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminTypeSubmitServlet</servlet-name>
+        <servlet-class>nw.controller.adminTypeSubmitServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminCategoryServlet</servlet-name>
+        <servlet-class>nw.controller.adminCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminCategorySubmitServlet</servlet-name>
+        <servlet-class>nw.controller.adminCategorySubmitServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogOutServlet</servlet-name>
@@ -60,41 +90,233 @@
         <servlet-name>adminAccountSubmitServlet</servlet-name>
         <servlet-class>nw.controller.adminAccountSubmitServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>errorHandlerServlet</servlet-name>
+        <servlet-class>nw.controller.errorHandlerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerIndexServlet</servlet-name>
+        <servlet-class>nw.controller.readerIndexServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerSignupServlet</servlet-name>
+        <servlet-class>nw.controller.readerSignupServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerLoginServlet</servlet-name>
+        <servlet-class>nw.controller.readerLoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerLogoutServlet</servlet-name>
+        <servlet-class>nw.controller.readerLogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>journalistUpdateArticle</servlet-name>
+        <servlet-class>nw.controller.journalistUpdateArticle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>journalistProfileServlet</servlet-name>
+        <servlet-class>nw.controller.journalistProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminListAllArticlesServlet</servlet-name>
+        <servlet-class>nw.controller.adminListAllArticlesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminListArticleWaitingServlet</servlet-name>
+        <servlet-class>nw.controller.adminListArticleWaitingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>journalistAllActivityServlet</servlet-name>
+        <servlet-class>nw.controller.journalistAllActivityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>journalistTrashServlet</servlet-name>
+        <servlet-class>nw.controller.journalistTrashServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>journalistNotificationServlet</servlet-name>
+        <servlet-class>nw.controller.journalistNotificationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerCategoryServlet</servlet-name>
+        <servlet-class>nw.controller.readerCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerArticleServlet</servlet-name>
+        <servlet-class>nw.controller.readerArticleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>journalistCommentsServlet</servlet-name>
+        <servlet-class>nw.controller.journalistCommentsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerCommentServlet</servlet-name>
+        <servlet-class>nw.controller.readerCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminMessageSubmitServlet</servlet-name>
+        <servlet-class>nw.controller.adminMessageSubmitServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerProfileServlet</servlet-name>
+        <servlet-class>nw.controller.readerProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerProfileSubmitServlet</servlet-name>
+        <servlet-class>nw.controller.readerProfileSubmitServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminCommentServlet</servlet-name>
+        <servlet-class>nw.controller.adminCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminBookmarkServlet</servlet-name>
+        <servlet-class>nw.controller.adminBookmarkServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>readerBookmarkServlet</servlet-name>
+        <servlet-class>nw.controller.readerBookmarkServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>adminLoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/manage/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogOutServlet</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>/manage/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>journalistComposeServlet</servlet-name>
-        <url-pattern>/journalist/compose</url-pattern>
+        <url-pattern>/manage/journalist/compose</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>journalistLibaryServlet</servlet-name>
-        <url-pattern>/journalist/libary</url-pattern>
+        <url-pattern>/manage/journalist/libary</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>adminDashboardServlet</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <url-pattern>/manage/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>adminAccountServlet</servlet-name>
-        <url-pattern>/admin/account</url-pattern>
+        <url-pattern>/manage/admin/account</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>journalistDashboardServlet</servlet-name>
-        <url-pattern>/journalist</url-pattern>
+        <url-pattern>/manage/journalist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>journalistListOfArticlesServlet</servlet-name>
-        <url-pattern>/journalist/List-of-Articles</url-pattern>
+        <url-pattern>/manage/journalist/List-of-Articles</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>adminAccountSubmitServlet</servlet-name>
-        <url-pattern>/admin/account/submit</url-pattern>
+        <url-pattern>/manage/admin/account/submit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>errorHandlerServlet</servlet-name>
+        <url-pattern>/errorHandlerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerIndexServlet</servlet-name>
+        <url-pattern/>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminAccountTypeServlet</servlet-name>
+        <url-pattern>/manage/admin/accounttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminTypeSubmitServlet</servlet-name>
+        <url-pattern>/manage/admin/accounttype/submit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminCategoryServlet</servlet-name>
+        <url-pattern>/manage/admin/category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminCategorySubmitServlet</servlet-name>
+        <url-pattern>/manage/admin/category/submit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerSignupServlet</servlet-name>
+        <url-pattern>/rsignup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerLoginServlet</servlet-name>
+        <url-pattern>/rlogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerLogoutServlet</servlet-name>
+        <url-pattern>/rlogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>journalistUpdateArticle</servlet-name>
+        <url-pattern>/manage/journalist/List-of-Articles/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>journalistProfileServlet</servlet-name>
+        <url-pattern>/manage/journalist/Profile-information</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerCategoryServlet</servlet-name>
+        <url-pattern>/category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminListAllArticlesServlet</servlet-name>
+        <url-pattern>/manage/admin/List-of-articles</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminListArticleWaitingServlet</servlet-name>
+        <url-pattern>/manage/admin/List-article-waiting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>journalistAllActivityServlet</servlet-name>
+        <url-pattern>/manage/journalist/Activities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>journalistTrashServlet</servlet-name>
+        <url-pattern>/manage/journalist/Trash</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>journalistNotificationServlet</servlet-name>
+        <url-pattern>/manage/journalist/notifications</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerArticleServlet</servlet-name>
+        <url-pattern>/article</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>journalistCommentsServlet</servlet-name>
+        <url-pattern>/manage/journalist/comments</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerCommentServlet</servlet-name>
+        <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminMessageSubmitServlet</servlet-name>
+        <url-pattern>/manage/admin/preview/submit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerProfileServlet</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerProfileSubmitServlet</servlet-name>
+        <url-pattern>/profile/submit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminCommentServlet</servlet-name>
+        <url-pattern>/manage/admin/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminBookmarkServlet</servlet-name>
+        <url-pattern>/manage/admin/bookmark</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>readerBookmarkServlet</servlet-name>
+        <url-pattern>/bookmark</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

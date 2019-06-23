@@ -76,22 +76,26 @@ a {
 }
 
 a:hover {
-    color: #555;
+    color: #555;   
 }
 
 #aline[name = "article"] div > a:hover,
 div[name = "trashAr"] div > a:hover,
 .add-img-border:hover label{
     color: #0e6cdf !important;
-    text-decoration: underline;
+/*    text-decoration: underline;*/
 }
 
-#aline[name = "draft"] .aline:hover {
-    -webkit-box-shadow: 0px 0px 0px 1px #888888 inset !important;
-    box-shadow: 0px 0px 0px 1px #888888 inset !important;
+#aline[name = "comment"] .aline:hover {
+    -webkit-box-shadow: 0px 0px 0px 1px #888888 inset;
+    box-shadow: 0px 0px 0px 1px #888888 inset;
     z-index: 2;
 }
 
+span[name = "heading"]:hover{
+    color: #0e6cdf !important;
+    
+}
 /*li a {
     display: block;
     text-decoration: none;
@@ -171,7 +175,7 @@ h6, .h6 {
 #wrapper #content-wrapper #content{
     -webkit-box-flex:1;
     -ms-flex:1 0 auto;
-    flex:1 0 auto;
+    flex:1 0;
 }
 
 /*--icon--*/
@@ -3581,7 +3585,12 @@ hr.sidetopbar-divider {
 }
 
 .topbar .dropdown-list{
-    width:20rem!important;
+    width:26rem!important;
+}
+
+.topbar .dropdown-list .notify{
+    overflow-y: auto;
+    max-height: 500px;
 }
 
 .topbar .dropdown-btn{
@@ -3643,11 +3652,7 @@ hr.sidetopbar-divider {
 }
 
 .topbar .dropdown-list .dropdown-item .text-break {
-    max-width: 10rem
-}
-
-.topbar .dropdown-list .dropdown-item .text-break {
-    max-width: 13.375rem
+    max-width: 16rem
 }
 
 .topbar .nav-item .nav-link {
@@ -3690,7 +3695,7 @@ hr.sidetopbar-divider {
     right: 0;
   }
   .topbar .dropdown-list {
-    width: 20rem !important;
+    width: 26rem !important;
   }
   .topbar .dropdown-list .dropdown-item .text-truncate {
     max-width: 13.375rem;
@@ -3758,7 +3763,7 @@ hr.sidetopbar-divider {
     z-index: 1000;
     display: none;
     float: left;
-    min-width: 160px;
+    min-width: 200px;
     padding: 5px 0;
     margin: 2px 0 0;
     font-size: 14px;
@@ -3857,7 +3862,7 @@ hr.sidetopbar-divider {
 .dropdown-item {
     display: block;
     width: 100%;
-    padding: .25rem 1.5rem;
+    padding: .25rem 1rem;
     clear: both;
     font-weight: 400;
     color: #3a3b45;

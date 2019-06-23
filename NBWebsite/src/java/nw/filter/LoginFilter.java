@@ -12,12 +12,14 @@ import java.io.StringWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import nw.bean.AccountBean;
 import nw.bean.AccountTypeBean;
 
 /**
@@ -101,6 +103,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
@@ -109,9 +112,17 @@ public class LoginFilter implements Filter {
         //get context path
         String contextPath = req.getContextPath();
         if (session.getAttribute("CurrentAccount") == null && !requestURI.endsWith("login")) {
-            resp.sendRedirect(contextPath + "/login");
+            resp.sendRedirect(contextPath + "/manage/login");
         } else {
-             //session(currentAttribute)!= null || requestURI.endwith("login")
+            //session(currentAttribute)!= null || requestURI.endwith("login") 
+//            if (session.getAttribute("CurrentAccount") != null) {
+//                AccountTypeBean currType = (AccountTypeBean) session.getAttribute("CurrentAccountType");
+//                if (currType.getAdminRight() == 1) {
+//                    resp.sendRedirect(contextPath + "/manage/admin");
+//                } else if (currType.getJournalistRight() == 1) {
+//                    resp.sendRedirect(contextPath + "/manage/journalist");
+//                }
+//            }
             chain.doFilter(request, response);
         }
 

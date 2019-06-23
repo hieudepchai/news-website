@@ -18,16 +18,16 @@
         <title>Login</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- MetisMenu CSS -->
-        <link href="css/metisMenu.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/metisMenu.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="css/startmin" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/startmin" rel="stylesheet">
 
         <!-- Custom Fonts -->
-        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     </head>
     <body>
@@ -62,16 +62,16 @@
         </div>
 
         <!-- jQuery -->
-        <script src="../js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
-        <script src="../js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
         <!-- Metis Menu Plugin JavaScript -->
-        <script src="../js/metisMenu.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/metisMenu.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
-        <script src="../js/startmin.js"></script>
+        <script src="${pageContext.request.contextPath}/js/startmin.js"></script>
 
     </body>
 </html>
